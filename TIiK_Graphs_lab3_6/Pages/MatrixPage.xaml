@@ -9,7 +9,7 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
 		<StackPanel>
-		
+		<mui:ModernTab/>
 		</StackPanel>
         </ScrollViewer>
     </Grid>
