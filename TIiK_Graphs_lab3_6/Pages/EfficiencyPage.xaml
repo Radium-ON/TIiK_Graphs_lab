@@ -12,6 +12,7 @@
                 <TextBlock Text="СЛОЖНОСТЬ АЛГОРИТМОВ" Style="{StaticResource Heading2}" Margin="0,0,0,10" />
                 <DataGrid Name="data_res" AutoGenerateColumns="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Число вершин"/>
                         <DataGridTextColumn Header="Теор. значение" Binding="{Binding Path=Time_theory}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Релакс. Дейкстры" Binding="{Binding Path=Time2}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Релакс. A-Star" Binding="{Binding Path=Time3}"></DataGridTextColumn>
