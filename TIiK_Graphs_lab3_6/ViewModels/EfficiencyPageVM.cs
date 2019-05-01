@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Prism.Mvvm;
 
 namespace TIiK_Graphs_lab3_6.ViewModels
 {
-    class EfficiencyPageVM : MainWindowVM
+    public class EfficiencyPageVM : BindableBase
     {
     }
 }

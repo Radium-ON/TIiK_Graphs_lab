@@ -24,14 +24,14 @@ namespace TIiK_Graphs_lab3_6.Pages
 {
 
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for MatrixPage.xaml
     /// </summary>
-    public partial class Home : UserControl, IContent
+    public partial class MatrixPage : UserControl, IContent
     {
         private Regex regex = new Regex(@"^[0-9]*\,?[0-9]*$");
 
 
-        public Home()
+        public MatrixPage()
         {
             InitializeComponent();
         }
