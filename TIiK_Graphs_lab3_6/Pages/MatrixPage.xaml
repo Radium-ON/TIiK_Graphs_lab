@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:viewModels="clr-namespace:TIiK_Graphs_lab3_6.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="768.2">
+    <UserControl.Resources>
+        <viewModels:SearchToVisibilityConverter x:Key="search_to_visibility"/>
+    </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <WrapPanel Orientation="Horizontal">
@@ -38,13 +42,23 @@
                     <TextBlock Text="Обход и поиск" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,10,0" Width="100">
-                            <ComboBoxItem x:Name="cmb_item_width" Content="В ширину"/>
-                            <ComboBoxItem x:Name="cmb_item_depth" Content="В глубину"/>
-                            <ComboBoxItem x:Name="cmb_item_deikstr" Content="Дейкстры"/>
-                            <ComboBoxItem x:Name="cmb_item_a_star" Content="A-star"/>
+                            <ComboBox.Items>
+                                <ComboBoxItem x:Name="cmb_item_width" Content="В ширину"/>
+                                <ComboBoxItem x:Name="cmb_item_depth" Content="В глубину"/>
+                                <ComboBoxItem x:Name="cmb_item_dijkstra" Content="Дейкстры"/>
+                                <ComboBoxItem x:Name="cmb_item_a_star" Content="A-star"/>
+                            </ComboBox.Items>
                         </ComboBox>
                         <Button x:Name="btn_path" Content="Путь / обход" Margin="10,0,0,0" MinWidth="105"/>
 
+                    </StackPanel>
+                    <StackPanel x:Name="stack_search_panel" Orientation="Horizontal" Margin="5,10,0,0"
+                                Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedValue,
+                        Converter={StaticResource search_to_visibility}}">
+                        <Label Content="От:" Margin="0,0,20,0" MinWidth="20"/>
+                        <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,10,0"/>
+                        <Label Content="До:" Margin="10,0,25,0" MinWidth="20"/>
+                        <TextBox x:Name="tbox_finish_dijkstra" MinWidth="60"/>
                     </StackPanel>
                     <GroupBox Header="Обход графа">
                         <DataGrid x:Name="dg_graph_path" Margin="5,10"/>

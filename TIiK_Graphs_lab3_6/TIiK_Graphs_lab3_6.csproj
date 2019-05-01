@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\EfficiencyPageVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\MatrixPageVM.cs" />
+    <Compile Include="ViewModels\SearchToVisibilityConverter.cs" />
     <Page Include="Assets\CustomDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
