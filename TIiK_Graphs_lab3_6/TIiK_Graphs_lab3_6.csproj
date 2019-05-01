@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\RelaxationStats.cs" />
+    <Compile Include="Models\VertexFactory.cs" />
     <Compile Include="ViewModels\EfficiencyPageVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\MatrixPageVM.cs" />

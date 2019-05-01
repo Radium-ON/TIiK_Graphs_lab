@@ -6,7 +6,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:viewModels="clr-namespace:TIiK_Graphs_lab3_6.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="768.2">
+             d:DesignHeight="400" d:DesignWidth="377.8">
     <UserControl.Resources>
         <viewModels:SearchToVisibilityConverter x:Key="search_to_visibility"/>
     </UserControl.Resources>
