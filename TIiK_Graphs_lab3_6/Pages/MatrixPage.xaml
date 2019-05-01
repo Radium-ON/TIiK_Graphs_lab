@@ -21,7 +21,7 @@
 
                     </StackPanel>
                     <GroupBox Header="Матрица смежности">
-                        <DataGrid x:Name="dg_matrix_adjacency" Margin="5,10"/>
+                        <DataGrid x:Name="dg_matrix_adjacency" Margin="5,10" ItemsSource="{Binding MatrixAdjacency}"/>
                     </GroupBox>
 
                 </StackPanel>

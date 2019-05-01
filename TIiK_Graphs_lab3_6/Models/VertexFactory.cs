@@ -9,7 +9,7 @@ namespace TIiK_Graphs_lab3_6.Models
 {
     public static class VertexFactory
     {
-        static ObservableCollection<VertexNode> GetVertexDijkstra()
+        public static ObservableCollection<VertexNode> GetVertexDijkstra()
         {
             var coll = new ObservableCollection<VertexNode>
             {
@@ -30,7 +30,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        static ObservableCollection<ObservableCollection<int>> GetWeightMatrixCost()
+        public static ObservableCollection<ObservableCollection<int>> GetWeightMatrixCost()
         {
             var coll = new  ObservableCollection<ObservableCollection<int>>
             {
@@ -51,7 +51,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        static ObservableCollection<ObservableCollection<int>> GetWeightMatrixQuality()
+        public static ObservableCollection<ObservableCollection<int>> GetWeightMatrixQuality()
         {
             var coll = new  ObservableCollection<ObservableCollection<int>>
             {

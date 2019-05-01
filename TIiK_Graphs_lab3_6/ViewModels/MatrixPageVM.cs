@@ -1,12 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TIiK_Graphs_lab3_6.Models;
 
 namespace TIiK_Graphs_lab3_6.ViewModels
 {
-    class MatrixPageVM : MainWindowVM
+    public class MatrixPageVM : MainWindowVM
     {
+        public MatrixPageVM()
+        {
+            MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
+        }
+        private ObservableCollection<ObservableCollection<int>> _matrixAdjaency;
+        public ObservableCollection <ObservableCollection<int>> MatrixAdjacency
+        {
+            get { return _matrixAdjaency;}
+            set {_matrixAdjaency = value ;
+                RaisePropertyChanged("MatrixAdjacency");
+            }
+        } 
+        
     }
 }
