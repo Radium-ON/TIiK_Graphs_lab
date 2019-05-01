@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
+using FirstFloor.ModernUI.Windows.Controls;
 using Prism.Mvvm;
 using TIiK_Graphs_lab3_6.Models;
 
@@ -15,7 +18,16 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             //_matrixPageVm = new MatrixPageVM();
             //_efficiencyPageVm = new EfficiencyPageVM();
-            MatrixAdjacency = VertexFactory.GetWeightMatrixCost();            
+            MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
+            for(var i=0; i<MatrixAdjacency.Count;i++)
+            {
+                ColumnCollection.Add(
+                    new FirstFloor.ModernUI.Windows.Controls.DataGridTextColumn()
+                    {
+                        Binding = new Binding($"[{i}]"),
+                        Header = i+1,
+                    });
+            }
 
         }
 
@@ -35,5 +47,9 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         private readonly EfficiencyPageVM _efficiencyPageVm;
 
         public EfficiencyPageVM EfficiencyPageVM { get; }
+
+        private readonly ObservableCollection<DataGridColumn> _columnCollection;
+
+        public ObservableCollection<DataGridColumn> ColumnCollection { get; private set; } = new ObservableCollection<DataGridColumn>();
     }
 }
