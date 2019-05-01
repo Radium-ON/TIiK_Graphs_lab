@@ -19,9 +19,25 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public int VStatus { get; set; }
 
+        public VertexNode(int vertexId, int distance, string name, int vStatus)//for Dijkstra
+        {
+            VertexId = vertexId;
+            Distance = distance;
+            Name = name;
+            VStatus = vStatus;
+        }
+
+        public VertexNode(int vertexId, int vStatus)//for width & depth
+        {
+            VertexId = vertexId;
+            VStatus = vStatus;
+        }
+
         public enum VertexStatusEnum
         {
-            noVisited, visited, closed
+            noVisited,
+            visited,
+            closed
         }
     }
 }

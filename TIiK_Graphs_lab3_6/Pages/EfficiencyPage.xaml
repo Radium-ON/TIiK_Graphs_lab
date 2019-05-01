@@ -13,9 +13,9 @@
                 <DataGrid Name="data_res" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Число вершин"/>
-                        <DataGridTextColumn Header="Теор. значение" Binding="{Binding Path=Time_theory}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Релакс. Дейкстры" Binding="{Binding Path=Time2}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Релакс. A-Star" Binding="{Binding Path=Time3}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Теор. значение" Binding="{Binding Path=Time_theory}"/>
+                        <DataGridTextColumn Header="Релакс. Дейкстры" Binding="{Binding Path=Time2}"/>
+                        <DataGridTextColumn Header="Релакс. A-Star" Binding="{Binding Path=Time3}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

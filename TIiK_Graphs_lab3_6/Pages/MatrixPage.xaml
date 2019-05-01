@@ -5,35 +5,39 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="400">
+             d:DesignHeight="400" d:DesignWidth="768.2">
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <WrapPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,10,0" Width="100"/>
                         <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
-                    <DataGrid x:Name="dg_matrix_adjacency" Margin="5,10"/>
+                    <GroupBox Header="Матрица смежности">
+                        <DataGrid x:Name="dg_matrix_adjacency" Margin="5,10"/>
+                    </GroupBox>
 
                 </StackPanel>
                 <StackPanel Margin="10,0,0,0">
                     <TextBlock Text="Имена вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
 
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" MinWidth="80" Margin="0,0,10,0"/>
+                        <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" MinWidth="80" Margin="0,0,10,0" Width="100"/>
                         <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
-                    <DataGrid x:Name="dg_vertex_names"/>
+                    <GroupBox Header="Имена вершин">
+                        <DataGrid x:Name="dg_vertex_names"/>
+                    </GroupBox>
 
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                     <TextBlock Text="Обход и поиск" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,10,0" Width="80">
+                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,10,0" Width="100">
                             <ComboBoxItem x:Name="cmb_item_width" Content="В ширину"/>
                             <ComboBoxItem x:Name="cmb_item_depth" Content="В глубину"/>
                             <ComboBoxItem x:Name="cmb_item_deikstr" Content="Дейкстры"/>
@@ -42,7 +46,9 @@
                         <Button x:Name="btn_path" Content="Путь / обход" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
-                    <DataGrid x:Name="dg_graph_path" Margin="5,10"/>
+                    <GroupBox Header="Обход графа">
+                        <DataGrid x:Name="dg_graph_path" Margin="5,10"/>
+                    </GroupBox>
 
                 </StackPanel>
 
