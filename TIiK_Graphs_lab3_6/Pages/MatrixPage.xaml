@@ -6,37 +6,46 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:viewModels="clr-namespace:TIiK_Graphs_lab3_6.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="511.6">
-    
+             d:DesignHeight="588.8" d:DesignWidth="511.6">
+
     <UserControl.Resources>
         <viewModels:SearchToVisibilityConverter x:Key="search_to_visibility"/>
+        <viewModels:RowNumberConverter x:Key="row_number_converter"/>
     </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <WrapPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical" Margin="10,0,0,20">
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
-                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                    <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,10,0" Width="100"/>
                         <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
                     <GroupBox Header="Матрица смежности">
-                        <DataGrid x:Name="dg_matrix_adjacency" Margin="5,10" ItemsSource="{Binding MatrixAdjacency}"
+                        <DataGrid x:Name="dg_matrix_adjacency" Margin="5,0" ItemsSource="{Binding MatrixAdjacency, UpdateSourceTrigger=PropertyChanged}"
                                   CanUserReorderColumns="False"
                                   CanUserResizeColumns="False"
                                   CanUserSortColumns="False"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
-                                  viewModels:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}"
-                                  />
+                                  viewModels:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}">
+                            <DataGrid.RowHeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=., 
+                        RelativeSource={RelativeSource AncestorType=DataGridRow},
+                        Converter={StaticResource row_number_converter}}" FontWeight="Bold" FontSize="14" MinWidth="20"/>
+                                </DataTemplate>
+                            </DataGrid.RowHeaderTemplate>
+
+                        </DataGrid>
                     </GroupBox>
 
                 </StackPanel>
                 <StackPanel Margin="10,0,0,0" MinWidth="400" MinHeight="200">
                     <TextBlock Text="Имена вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
 
-                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                    <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" MinWidth="80" Margin="0,0,10,0" Width="100"/>
                         <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"/>
 
@@ -60,7 +69,7 @@
                         <Button x:Name="btn_path" Content="Путь / обход" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
-                    <StackPanel x:Name="stack_search_panel" Orientation="Horizontal" Margin="5,10,0,0"
+                    <StackPanel x:Name="stack_search_panel" Orientation="Horizontal" Margin="5,10,0,10"
                                 Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedValue,
                         Converter={StaticResource search_to_visibility}}">
                         <Label Content="От:" Margin="0,0,20,0" MinWidth="20"/>
