@@ -38,16 +38,17 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private bool CanAddVertex(string par)
         {
-            return !(VertexNodes.Any(item => item.Name == par ||
-                                             item.VertexId == NewVertexId) ||
+            return !(VertexNodes.Any(item => item.Name == par) ||
                                              string.IsNullOrEmpty(par));
         }
 
         private void AddVertex(string par)
         {
+            if(VertexNodes.Count!=0)
+                NewVertexId = VertexNodes.Max(x => x.VertexId);
             if (VertexNodes.Count < (int)VertexNumber.CurrentItem)
             {
-                VertexNodes.Add(new VertexNode(NewVertexId, par));
+                VertexNodes.Add(new VertexNode(NewVertexId+1, par));
             }
             else
             {
@@ -111,23 +112,10 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             set { SetProperty(() => ColumnCollection, value); }
         }
 
-        //public string NewVertexName
-        //{
-        //    get => _newVertexName;
-        //    set
-        //    {
-        //        SetProperty(ref _newVertexName, value);
-        //        AddVertexCommand.RaiseCanExecuteChanged();
-        //    }
-        //}
-
         public int NewVertexId
         {
             get { return GetProperty(() => NewVertexId); }
-            set
-            {
-                SetProperty(() => NewVertexId, value);
-            }
+            set { SetProperty(() => NewVertexId, value); }
         }
 
         #endregion
