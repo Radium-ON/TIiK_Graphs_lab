@@ -20,21 +20,43 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             //_matrixPageVm = new MatrixPageVM();
             //_efficiencyPageVm = new EfficiencyPageVM();
-            MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
-            VertexNodes = VertexFactory.GetVertexDijkstra();
-            AddColumnCollection(MatrixAdjacency.Count);
-
+            //MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
+            //AddColumnCollection(MatrixAdjacency.Count);
+            //VertexNodes = VertexFactory.GetVertexDijkstra();
+            VertexNodes = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
+
+            VertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
+        }
+
+        private void VertexNumber_CurrentChanged(object sender, EventArgs e)
+        {
+            int num = (int)((CollectionView)sender).CurrentItem;
+            MatrixAdjacency = VertexFactory.GetWeightMatrix(num);
+            AddColumnCollection(num);
         }
 
         private bool CanAddVertex(string par)
         {
-            return !(VertexNodes.Any(item => item.Name == par || item.VertexId == NewVertexId) || string.IsNullOrEmpty(par));
+            return !(VertexNodes.Any(item => item.Name == par ||
+                                             item.VertexId == NewVertexId) ||
+                                             string.IsNullOrEmpty(par));
         }
 
         private void AddVertex(string par)
         {
-            VertexNodes.Add(new VertexNode(NewVertexId, par));
+            if (VertexNodes.Count < (int)VertexNumber.CurrentItem)
+            {
+                VertexNodes.Add(new VertexNode(NewVertexId, par));
+            }
+            else
+            {
+                new ModernDialog()
+                {
+                    Title = "Внимание",
+                    Content = "Выберите другой размер матрицы смежности, чтобы добавить ещё вершин"
+                }.ShowDialog();
+            }
         }
 
         #region Backing Fields
@@ -51,12 +73,12 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         #region Properties
 
-        public List<int> VertexNumber { get; private set; } = new List<int>(Enumerable.Range(2,12));
+        public CollectionView VertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
 
         public int SelectedVNumber
         {
             get { return GetProperty(() => SelectedVNumber); }
-            set { SetProperty(()=>SelectedVNumber,value); }
+            set { SetProperty(() => SelectedVNumber, value); }
         }
 
         public ObservableCollection<VertexNode> VertexNodes
@@ -83,7 +105,11 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         public EfficiencyPageVM EfficiencyPageVM { get; }
 
-        public ObservableCollection<DataGridColumn> ColumnCollection { get; private set; } = new ObservableCollection<DataGridColumn>();
+        public ObservableCollection<DataGridColumn> ColumnCollection
+        {
+            get { return GetProperty(() => ColumnCollection); }
+            set { SetProperty(() => ColumnCollection, value); }
+        }
 
         //public string NewVertexName
         //{
@@ -107,6 +133,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         #endregion
         private void AddColumnCollection(int count)
         {
+            ColumnCollection = new ObservableCollection<DataGridColumn>();
             for (int i = 0; i < count; i++)
             {
                 ColumnCollection.Add(
@@ -118,7 +145,9 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                         MinWidth = 50
                     });
             }
+
         }
+
 
 
         #region DelegateCommands

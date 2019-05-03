@@ -54,7 +54,7 @@
                                  MinWidth="70" Margin="0,0,20,0" Width="70"
                                  />
                         <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"
-                                Command="{Binding AddVertexCommand}" CommandParameter="{Binding ElementName=tbox_vertex_name, Path=Text}"/>
+                                Command="{Binding AddVertexCommand}" CommandParameter="{Binding ElementName=tbox_vertex_name, Path=Text}" IsDefault="True"/>
 
                     </StackPanel>
                     <GroupBox Header="Имена вершин">
@@ -64,7 +64,7 @@
                                   CanUserSortColumns="False"
                                   AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="№" Binding="{Binding Path=VertexId}" Width="0.2*"/>
+                                <DataGridTextColumn Header="№" Binding="{Binding Path=VertexId}" Width="0.2*" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>

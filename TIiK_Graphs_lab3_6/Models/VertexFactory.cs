@@ -30,6 +30,20 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
+        public static ObservableCollection<ObservableCollection<int>> GetWeightMatrix(int vertexNum)
+        {
+            var coll = new ObservableCollection<ObservableCollection<int>>();
+            for (int i = 0; i < vertexNum; i++)
+            {
+                coll.Add(new ObservableCollection<int>());
+                for (int j = 0; j < vertexNum; j++)
+                {
+                    coll[i].Add(0);
+                }
+            }
+            return coll;
+        }
+
         public static ObservableCollection<ObservableCollection<int>> GetWeightMatrixCost()
         {
             var coll = new  ObservableCollection<ObservableCollection<int>>
