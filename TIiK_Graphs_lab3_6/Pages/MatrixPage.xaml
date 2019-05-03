@@ -18,7 +18,9 @@
                 <StackPanel Orientation="Vertical" Margin="10,0,0,20">
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
-                        <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,10,0" Width="100"/>
+                        <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,20,0" Width="100"
+                                  ItemsSource="{Binding VertexNumber}"
+                                  SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
@@ -46,12 +48,13 @@
                     <TextBlock Text="Имена вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
 
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
-                        <TextBox x:Name="tbox_vertex_id" Margin="0,0,5,0" Text="{Binding NewVertexId, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="tbox_vertex_id" Margin="0,0,10,0" MinWidth="20"
+                                 Text="{Binding NewVertexId, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" 
-                                 MinWidth="80" Margin="0,0,10,0" Width="85"
-                                 Text="Kek"/>
+                                 MinWidth="70" Margin="0,0,20,0" Width="70"
+                                 />
                         <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"
-                                Command="{Binding AddVertexCommand}" CommandParameter="{Binding ElementName=tbox_vertex_name, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
+                                Command="{Binding AddVertexCommand}" CommandParameter="{Binding ElementName=tbox_vertex_name, Path=Text}"/>
 
                     </StackPanel>
                     <GroupBox Header="Имена вершин">
@@ -71,7 +74,7 @@
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0" MinWidth="400" MinHeight="200">
                     <TextBlock Text="Обход и поиск" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,10,0" Width="100">
+                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,20,0" Width="100">
                             <ComboBox.Items>
                                 <ComboBoxItem x:Name="cmb_item_width" Content="В ширину"/>
                                 <ComboBoxItem x:Name="cmb_item_depth" Content="В глубину"/>

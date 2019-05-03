@@ -1,4 +1,5 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
+﻿using DevExpress.Mvvm;
+using FirstFloor.ModernUI.Windows.Controls;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
-using DevExpress.Mvvm;
 using TIiK_Graphs_lab3_6.Models;
-using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace TIiK_Graphs_lab3_6.ViewModels
 {
-    public class MainWindowVM : BindableBase
+    public class MainWindowVM : ViewModelBase
     {
         public MainWindowVM()
         {
@@ -25,20 +24,17 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             VertexNodes = VertexFactory.GetVertexDijkstra();
             AddColumnCollection(MatrixAdjacency.Count);
 
-            AddVertexCommand = new Prism.Commands.DelegateCommand<string>(AddVertex, CanAddVertex);
+            AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
         }
 
         private bool CanAddVertex(string par)
         {
-            //return par != null && !(VertexNodes.Any(item => item.Name == par)|| par.Length==0);
-            return !string.IsNullOrEmpty(par);
-
+            return !(VertexNodes.Any(item => item.Name == par || item.VertexId == NewVertexId) || string.IsNullOrEmpty(par));
         }
 
         private void AddVertex(string par)
         {
-
-            VertexNodes.Add(new VertexNode(13, par));
+            VertexNodes.Add(new VertexNode(NewVertexId, par));
         }
 
         #region Backing Fields
@@ -46,7 +42,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         private readonly EfficiencyPageVM _efficiencyPageVm;
         private ObservableCollection<ObservableCollection<int>> _matrixAdjaency;
         private readonly ObservableCollection<DataGridColumn> _columnCollection;
-        private ObservableCollection<VertexNode> _vertexNodes;
+        //private ObservableCollection<VertexNode> _vertexNodes;
         private string _newVertexName;
         private string _newVertexId;
 
@@ -54,13 +50,22 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         #endregion
 
         #region Properties
+
+        public List<int> VertexNumber { get; private set; } = new List<int>(Enumerable.Range(2,12));
+
+        public int SelectedVNumber
+        {
+            get { return GetProperty(() => SelectedVNumber); }
+            set { SetProperty(()=>SelectedVNumber,value); }
+        }
+
         public ObservableCollection<VertexNode> VertexNodes
         {
-            get { return _vertexNodes; }
+            get { return GetProperty(() => VertexNodes); }
             set
             {
-                SetProperty(ref _vertexNodes, value);
-                RaisePropertyChanged("VertexNodes");
+                SetProperty(() => VertexNodes, value);
+                //RaisePropertyChanged("VertexNodes");
             }
         }
 
@@ -90,13 +95,12 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         //    }
         //}
 
-        public string NewVertexId
+        public int NewVertexId
         {
-            get => _newVertexId;
+            get { return GetProperty(() => NewVertexId); }
             set
             {
-                SetProperty(ref _newVertexId, value);
-                AddVertexCommand.RaiseCanExecuteChanged();
+                SetProperty(() => NewVertexId, value);
             }
         }
 
@@ -118,7 +122,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
 
         #region DelegateCommands
-        public Prism.Commands.DelegateCommand<string> AddVertexCommand { get; private set; }
+        public DelegateCommand<string> AddVertexCommand { get; private set; }
 
 
         #endregion
