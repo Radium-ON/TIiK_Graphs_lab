@@ -13,7 +13,7 @@
         <viewModels:RowNumberConverter x:Key="row_number_converter"/>
     </UserControl.Resources>
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
+        <ScrollViewer Padding="2">
             <WrapPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical" Margin="10,0,0,20">
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
@@ -29,7 +29,7 @@
                                   CanUserSortColumns="False"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"
-                                  viewModels:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}">
+                                  viewModels:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <DataGrid.RowHeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=., 
@@ -42,16 +42,29 @@
                     </GroupBox>
 
                 </StackPanel>
-                <StackPanel Margin="10,0,0,0" MinWidth="400" MinHeight="200">
+                <StackPanel Margin="10,0,0,0">
                     <TextBlock Text="Имена вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
 
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
-                        <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" MinWidth="80" Margin="0,0,10,0" Width="100"/>
-                        <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"/>
+                        <TextBox x:Name="tbox_vertex_id" Margin="0,0,5,0" Text="{Binding NewVertexId, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="tbox_vertex_name" TextWrapping="Wrap" 
+                                 MinWidth="80" Margin="0,0,10,0" Width="85"
+                                 Text="Kek"/>
+                        <Button Content="Добавить" Margin="10,0,0,0" MinWidth="105"
+                                Command="{Binding AddVertexCommand}" CommandParameter="{Binding ElementName=tbox_vertex_name, Path=Text, UpdateSourceTrigger=PropertyChanged}"/>
 
                     </StackPanel>
                     <GroupBox Header="Имена вершин">
-                        <DataGrid x:Name="dg_vertex_names"/>
+                        <DataGrid x:Name="dg_vertex_names" ItemsSource="{Binding VertexNodes}"
+                                  CanUserReorderColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserSortColumns="False"
+                                  AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="№" Binding="{Binding Path=VertexId}" Width="0.2*"/>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </GroupBox>
 
                 </StackPanel>

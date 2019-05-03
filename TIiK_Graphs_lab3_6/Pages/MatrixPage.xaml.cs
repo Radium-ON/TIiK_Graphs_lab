@@ -28,8 +28,6 @@ namespace TIiK_Graphs_lab3_6.Pages
     /// </summary>
     public partial class MatrixPage : UserControl, IContent
     {
-        private Regex regex = new Regex(@"^[0-9]*\,?[0-9]*$");
-
 
         public MatrixPage()
         {

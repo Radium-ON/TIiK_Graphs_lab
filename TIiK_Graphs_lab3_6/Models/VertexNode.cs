@@ -1,21 +1,33 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Prism.Mvvm;
 
 namespace TIiK_Graphs_lab3_6.Models
 {
     public class VertexNode : BindableBase
     {
-        public int VertexId { get; set; }
+        private int _vertexId;
+
+        public int VertexId
+        {
+            get => _vertexId;
+            set { SetProperty(ref _vertexId, value); }
+        }
 
         public int ParentId { get; set; }
 
         public int Distance { get; set; }
 
-        public string Name { get; set; }
+        private string _name;
+
+        public string Name
+        {
+            get => _name;
+            set { SetProperty(ref _name, value); }
+        }
 
         public int VStatus { get; set; }
 
@@ -24,7 +36,7 @@ namespace TIiK_Graphs_lab3_6.Models
             VertexId = vertexId;
             Distance = -1;
             Name = name;
-            VStatus = (int) VertexStatusEnum.NoVisited;
+            VStatus = (int)VertexStatusEnum.NoVisited;
         }
 
         public VertexNode(int vertexId, int vStatus)//for width & depth
