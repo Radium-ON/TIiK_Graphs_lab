@@ -106,6 +106,17 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
         }
 
+
+
+        public ObservableCollection<VertexNode> BypassCollection
+        {
+            get { return GetProperty(() => BypassCollection); }
+            set { SetProperty(() => BypassCollection, value); }
+        }
+
+
+
+
         public ObservableCollection<ObservableCollection<int>> MatrixAdjacency
         {
             get { return _matrixAdjaency; }

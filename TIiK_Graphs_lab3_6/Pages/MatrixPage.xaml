@@ -93,7 +93,8 @@
                         <TextBox x:Name="tbox_finish_dijkstra" MinWidth="60"/>
                     </StackPanel>
                     <GroupBox Header="Обход графа">
-                        <DataGrid x:Name="dg_graph_path" Margin="5,10" ItemsSource="{Binding VertexNodes}" CanUserReorderColumns="False"
+                        <DataGrid x:Name="dg_graph_path" Margin="5,10" ItemsSource="{Binding BypassCollection, UpdateSourceTrigger=PropertyChanged}"
+                                  CanUserReorderColumns="False"
                                   CanUserAddRows="False"
                                   CanUserSortColumns="False"
                                   AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top">

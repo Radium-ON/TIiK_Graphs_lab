@@ -43,20 +43,13 @@ namespace TIiK_Graphs_lab3_6.Models
             VertexId = vertexId;
             Distance = -1;
             Name = name;
-            VStatus = (int)VertexStatusEnum.NoVisited;
+            VStatus = 1;
         }
 
         public VertexNode(int vertexId, int vStatus)//for width & depth
         {
             VertexId = vertexId;
             VStatus = vStatus;
-        }
-
-        public enum VertexStatusEnum
-        {
-            NoVisited = 1,
-            Visited = 2,
-            Closed = 3
-        }
+        }       
     }
 }
