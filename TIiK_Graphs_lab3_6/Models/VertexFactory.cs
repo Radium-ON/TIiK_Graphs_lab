@@ -63,7 +63,14 @@ namespace TIiK_Graphs_lab3_6.Models
                 coll.Add(new ObservableCollection<int>());
                 for (int j = 0; j < vertexNum; j++)
                 {
-                    coll[i].Add(random.Next(0, 500));
+                    if (i == j)
+                    {
+                        coll[i].Add(0);
+                    }
+                    else
+                    {
+                        coll[i].Add(random.Next(0, 2));
+                    }
                 }
             }
             return coll;

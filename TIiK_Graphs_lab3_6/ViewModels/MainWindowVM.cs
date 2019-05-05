@@ -24,10 +24,25 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             //AddColumnCollection(MatrixAdjacency.Count);
             //VertexNodes = VertexFactory.GetVertexDijkstra();
             VertexNodes = new ObservableCollection<VertexNode>();
+            BypassCollection = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
             RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
+            BypassCommand = new DelegateCommand(PerformBypass,CanPerformBypass);
 
             CollectionViewVertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
+        }
+
+        private bool CanPerformBypass()
+        {
+            if (SelectedBypass == -1)
+                return false;
+            return true;
+        }
+
+        private void PerformBypass()
+        {
+            foreach (var node in VertexNodes){node.VStatus = 1;}
+            BypassService.DepthBypass(VertexNodes, MatrixAdjacency,BypassCollection);
         }
 
         private void VertexNumber_CurrentChanged(object sender, EventArgs e)
@@ -97,6 +112,13 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             get { return GetProperty(() => SelectedVNumber); }
             set { SetProperty(() => SelectedVNumber, value); }
         }
+
+        public int SelectedBypass
+        {
+            get { return GetProperty(() => SelectedBypass); }
+            set { SetProperty(() => SelectedBypass, value); }
+        }
+
 
         public ObservableCollection<VertexNode> VertexNodes
         {

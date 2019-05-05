@@ -21,8 +21,9 @@ namespace TIiK_Graphs_lab3_6
             Closed = 3
         }
 
-        public static void DepthBypass(ObservableCollection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, ref ObservableCollection<VertexNode> path)
+        public static void DepthBypass(ObservableCollection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
         {
+            path.Clear();
             stack.Push(list[0]);
             list[0].VStatus = (int)VStatEnum.Visited;
             while (stack.Count>0)
