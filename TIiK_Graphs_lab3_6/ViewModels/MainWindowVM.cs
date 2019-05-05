@@ -27,14 +27,14 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             BypassCollection = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
             RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
-            BypassCommand = new DelegateCommand(PerformBypass,CanPerformBypass);
+            BypassCommand = new DelegateCommand(PerformBypass, CanPerformBypass);
 
             CollectionViewVertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
         }
 
         private bool CanPerformBypass()
         {
-            if (SelectedBypass == -1)
+            if (VertexNodes.Count==0 ||MatrixAdjacency.Count==0)
                 return false;
             return true;
         }
@@ -42,7 +42,21 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         private void PerformBypass()
         {
             foreach (var node in VertexNodes){node.VStatus = VStatEnum.NoVisited;}
-            BypassService.DepthBypass(VertexNodes, MatrixAdjacency,BypassCollection);
+
+            switch (SelectedBypass)
+            {
+                case 0:
+                    BypassService.DepthBypass(VertexNodes, MatrixAdjacency,BypassCollection);
+                    break;
+                case 1:
+                    BypassService.WidthBypass(VertexNodes,MatrixAdjacency,BypassCollection);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+            
         }
 
         private void VertexNumber_CurrentChanged(object sender, EventArgs e)

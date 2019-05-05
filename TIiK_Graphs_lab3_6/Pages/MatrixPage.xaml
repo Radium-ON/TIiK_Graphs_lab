@@ -20,7 +20,7 @@
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,20,0" Width="100"
                                   ItemsSource="{Binding CollectionViewVertexNumber}"
-                                  SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                  SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"
                                 Command="{Binding RandomMatrixCommand}"/>
 
@@ -75,7 +75,7 @@
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,20,0" Width="100"
                                   ItemsSource="{Binding CollectionViewBypassType}"
-                                  SelectedIndex="{Binding SelectedBypass,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                  SelectedIndex="{Binding SelectedBypass, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button x:Name="btn_path" Content="Путь / обход" Margin="10,0,0,0" MinWidth="105"
                                 Command="{Binding BypassCommand}"/>
 
@@ -84,7 +84,7 @@
                                 Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedIndex,
                         Converter={StaticResource search_to_visibility}}">
                         <Label Content="От:" Margin="0,0,20,0" MinWidth="20"/>
-                        <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,10,0"/>
+                        <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,20,0"/>
                         <Label Content="До:" Margin="10,0,25,0" MinWidth="20"/>
                         <TextBox x:Name="tbox_finish_dijkstra" MinWidth="60"/>
                     </StackPanel>

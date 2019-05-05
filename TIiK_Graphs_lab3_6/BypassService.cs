@@ -22,13 +22,14 @@ namespace TIiK_Graphs_lab3_6
 
         /// <summary>
         /// Исправить обход графов с циклами (проверять посещение всех вершин)
-        /// Добавить вширину
         /// добавить дейкстры
         /// </summary>
 
 
 
-        public static void DepthBypass(ObservableCollection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
+        public static void DepthBypass(ObservableCollection<VertexNode> list, 
+            ObservableCollection<ObservableCollection<int>> matrix, 
+            ObservableCollection<VertexNode> path)
         {
             path.Clear();
             stack.Push(list[0]);
@@ -48,7 +49,9 @@ namespace TIiK_Graphs_lab3_6
             }
         }
 
-        public static void WidthBypass(ObservableCollection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
+        public static void WidthBypass(ObservableCollection<VertexNode> list, 
+            ObservableCollection<ObservableCollection<int>> matrix, 
+            ObservableCollection<VertexNode> path)
         {
             path.Clear();
             queue.Enqueue(list[0]);
