@@ -41,7 +41,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void PerformBypass()
         {
-            foreach (var node in VertexNodes){node.VStatus = 1;}
+            foreach (var node in VertexNodes){node.VStatus = VStatEnum.NoVisited;}
             BypassService.DepthBypass(VertexNodes, MatrixAdjacency,BypassCollection);
         }
 

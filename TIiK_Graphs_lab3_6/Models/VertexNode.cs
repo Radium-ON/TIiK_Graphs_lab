@@ -29,6 +29,7 @@ namespace TIiK_Graphs_lab3_6.Models
         public int Distance { get; set; }
 
         private string _name;
+        private VStatEnum vStatus;
 
         public string Name
         {
@@ -36,20 +37,26 @@ namespace TIiK_Graphs_lab3_6.Models
             set { SetProperty(()=>Name, value); }
         }
 
-        public int VStatus { get; set; }
+        
 
         public VertexNode(int vertexId, string name)//for Dijkstra
         {
             VertexId = vertexId;
             Distance = -1;
             Name = name;
-            VStatus = 1;
+            VStatus = VStatEnum.NoVisited;
         }
 
-        public VertexNode(int vertexId, int vStatus)//for width & depth
+        public VStatEnum VStatus
+        {
+            get { return vStatus; }
+            set { vStatus = value; }
+        }
+
+        public VertexNode(int vertexId, VStatEnum stat)//for width & depth
         {
             VertexId = vertexId;
-            VStatus = vStatus;
+            VStatus = stat;
         }       
     }
 }
