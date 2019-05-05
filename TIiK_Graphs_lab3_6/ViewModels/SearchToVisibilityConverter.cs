@@ -21,10 +21,9 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             {
                 if (value != null)
                 {
-                    ComboBoxItem cmb = (ComboBoxItem)value;
+                    var index = (int)value;
 
-
-                    if (cmb.Name=="cmb_item_dijkstra" || cmb.Name=="cmb_item_a_star")
+                    if (index == 2 || index == 3)
                     {
                         vis = Visibility.Visible;
                     }

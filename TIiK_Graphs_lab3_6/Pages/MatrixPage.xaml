@@ -73,19 +73,13 @@
                 <StackPanel Orientation="Vertical" Margin="10,0,0,0">
                     <TextBlock Text="Обход и поиск" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,20,0" Width="100">
-                            <ComboBox.Items>
-                                <ComboBoxItem x:Name="cmb_item_width" Content="В ширину"/>
-                                <ComboBoxItem x:Name="cmb_item_depth" Content="В глубину"/>
-                                <ComboBoxItem x:Name="cmb_item_dijkstra" Content="Дейкстры"/>
-                                <ComboBoxItem x:Name="cmb_item_a_star" Content="A-star"/>
-                            </ComboBox.Items>
-                        </ComboBox>
+                        <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,20,0" Width="100"
+                                  ItemsSource="{Binding CollectionViewBypassType}"/>
                         <Button x:Name="btn_path" Content="Путь / обход" Margin="10,0,0,0" MinWidth="105"/>
 
                     </StackPanel>
                     <StackPanel x:Name="stack_search_panel" Orientation="Horizontal" Margin="5,10,0,10"
-                                Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedValue,
+                                Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedIndex,
                         Converter={StaticResource search_to_visibility}}">
                         <Label Content="От:" Margin="0,0,20,0" MinWidth="20"/>
                         <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,10,0"/>

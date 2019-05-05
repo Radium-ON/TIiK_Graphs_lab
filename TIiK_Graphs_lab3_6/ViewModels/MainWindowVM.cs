@@ -90,6 +90,8 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
 
+        public CollectionView CollectionViewBypassType { get; private set; } = new CollectionView(new List<string>{"В глубину","В ширину","Дейкстры","A-star"});
+
         public int SelectedVNumber
         {
             get { return GetProperty(() => SelectedVNumber); }
@@ -148,6 +150,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         #region DelegateCommands
         public DelegateCommand<string> AddVertexCommand { get; private set; }
         public DelegateCommand RandomMatrixCommand { get; private set; }
+        public DelegateCommand BypassCommand { get; private set; }
 
         #endregion
 
