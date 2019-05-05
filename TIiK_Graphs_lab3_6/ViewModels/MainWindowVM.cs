@@ -34,29 +34,29 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private bool CanPerformBypass()
         {
-            if (VertexNodes.Count==0 ||MatrixAdjacency.Count==0)
+            if (VertexNodes.Count == 0 || MatrixAdjacency.Count == 0)
                 return false;
             return true;
         }
 
         private void PerformBypass()
         {
-            foreach (var node in VertexNodes){node.VStatus = VStatEnum.NoVisited;}
+            foreach (var node in VertexNodes) { node.VStatus = VStatEnum.NoVisited; }
 
             switch (SelectedBypass)
             {
                 case 0:
-                    BypassService.DepthBypass(VertexNodes, MatrixAdjacency,BypassCollection);
+                    BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 1:
-                    BypassService.WidthBypass(VertexNodes,MatrixAdjacency,BypassCollection);
+                    BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
             }
-            
+
         }
 
         private void VertexNumber_CurrentChanged(object sender, EventArgs e)
@@ -119,7 +119,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
 
-        public CollectionView CollectionViewBypassType { get; private set; } = new CollectionView(new List<string>{"В глубину","В ширину","Дейкстры","A-star"});
+        public CollectionView CollectionViewBypassType { get; private set; } = new CollectionView(new List<string> { "В глубину", "В ширину", "Дейкстры", "A-star" });
 
         public int SelectedVNumber
         {
@@ -131,6 +131,30 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             get { return GetProperty(() => SelectedBypass); }
             set { SetProperty(() => SelectedBypass, value); }
+        }
+
+        public int StartBVertex
+        {
+            get { return GetProperty(() => StartBVertex); }
+            set
+            {
+                if (value <= 0)
+                    SetProperty(() => StartBVertex, 1);
+                else
+                    SetProperty(() => StartBVertex, value);
+            }
+        }
+
+        public int FinishBVertex
+        {
+            get { return GetProperty(() => FinishBVertex); }
+            set
+            {
+                if (value <= 0)
+                    SetProperty(() => FinishBVertex, 1);
+                else
+                    SetProperty(() => FinishBVertex, value);
+            }
         }
 
 

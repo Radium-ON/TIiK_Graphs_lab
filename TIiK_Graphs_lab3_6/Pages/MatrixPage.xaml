@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:viewModels="clr-namespace:TIiK_Graphs_lab3_6.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="588.8" d:DesignWidth="511.6">
 
@@ -84,9 +85,13 @@
                                 Visibility="{Binding ElementName=cmb_set_travel, Path=SelectedIndex,
                         Converter={StaticResource search_to_visibility}}">
                         <Label Content="От:" Margin="0,0,20,0" MinWidth="20"/>
-                        <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,20,0"/>
+                        <TextBox x:Name="tbox_start_dijkstra" MinWidth="60" Margin="0,0,20,0"
+                                 Text="{Binding StartBVertex, Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="До:" Margin="10,0,25,0" MinWidth="20"/>
-                        <TextBox x:Name="tbox_finish_dijkstra" MinWidth="60"/>
+                        <TextBox x:Name="tbox_finish_dijkstra" MinWidth="60"
+                                 Text="{Binding FinishBVertex, Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                     <GroupBox Header="Обход графа">
                         <DataGrid x:Name="dg_graph_path" Margin="5,10" ItemsSource="{Binding BypassCollection, UpdateSourceTrigger=PropertyChanged}"
