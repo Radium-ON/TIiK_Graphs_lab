@@ -29,22 +29,21 @@ namespace TIiK_Graphs_lab3_6.Models
         public int Distance { get; set; }
 
         private string _name;
+
         private VStatEnum vStatus;
 
         public string Name
         {
             get { return GetProperty(() => Name); }
             set { SetProperty(()=>Name, value); }
-        }
-
-        
+        }       
 
         public VertexNode(int vertexId, string name)//for Dijkstra
         {
             VertexId = vertexId;
             Distance = -1;
             Name = name;
-            VStatus = VStatEnum.NoVisited;
+            VStatus = VStatEnum.NoViewed;
         }
 
         public VStatEnum VStatus

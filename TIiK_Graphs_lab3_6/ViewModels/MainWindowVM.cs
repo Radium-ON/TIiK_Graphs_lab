@@ -23,13 +23,32 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             //MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
             //AddColumnCollection(MatrixAdjacency.Count);
             //VertexNodes = VertexFactory.GetVertexDijkstra();
+
             VertexNodes = new ObservableCollection<VertexNode>();
+
             BypassCollection = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
             RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
             BypassCommand = new DelegateCommand(PerformBypass, CanPerformBypass);
+            LoadCostSetsCommand = new DelegateCommand(LoadCostSets);
+            LoadQualitySetsCommand = new DelegateCommand(LoadQualitySets);
 
             CollectionViewVertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
+        }
+
+        private void LoadQualitySets()
+        {
+            MatrixAdjacency = VertexFactory.GetWeightMatrixQuality();
+            VertexNodes = VertexFactory.GetVertexDijkstra();
+            AddColumnCollection(13);
+        }
+
+
+        private void LoadCostSets()
+        {
+            MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
+            VertexNodes = VertexFactory.GetVertexDijkstra();
+            AddColumnCollection(13);
         }
 
         private bool CanPerformBypass()
@@ -41,7 +60,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void PerformBypass()
         {
-            foreach (var node in VertexNodes) { node.VStatus = VStatEnum.NoVisited; }
+            foreach (var node in VertexNodes) { node.VStatus = VStatEnum.NoViewed; }
 
             switch (SelectedBypass)
             {
@@ -52,6 +71,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 2:
+                    BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
                     break;
                 case 3:
                     break;
@@ -211,6 +231,9 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         public DelegateCommand<string> AddVertexCommand { get; private set; }
         public DelegateCommand RandomMatrixCommand { get; private set; }
         public DelegateCommand BypassCommand { get; private set; }
+        public DelegateCommand LoadCostSetsCommand { get; private set; }
+        public DelegateCommand LoadQualitySetsCommand { get; private set; }
+
 
         #endregion
 
@@ -224,8 +247,8 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     {
                         Binding = new Binding($"[{i}]"),
                         Header = i + 1,
-                        Width = new DataGridLength(1, DataGridLengthUnitType.Star),
-                        MinWidth = 50
+                        //Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+                        //MinWidth = 50
                     });
             }
 
