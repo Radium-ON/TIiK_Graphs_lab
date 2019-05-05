@@ -25,8 +25,9 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             //VertexNodes = VertexFactory.GetVertexDijkstra();
             VertexNodes = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
+            RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
 
-            VertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
+            CollectionViewVertexNumber.CurrentChanged += VertexNumber_CurrentChanged;
         }
 
         private void VertexNumber_CurrentChanged(object sender, EventArgs e)
@@ -34,6 +35,19 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             int num = (int)((CollectionView)sender).CurrentItem;
             MatrixAdjacency = VertexFactory.GetWeightMatrix(num);
             AddColumnCollection(num);
+        }
+
+        private bool CanRandom()
+        {
+            if (SelectedVNumber == 0)
+                return false;
+            return true;
+        }
+
+        private void RandomMatrix()
+        {
+            MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber);
+            VertexNodes = VertexFactory.GetVertexes(MatrixAdjacency.Count);
         }
 
         private bool CanAddVertex(string par)
@@ -44,11 +58,11 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void AddVertex(string par)
         {
-            if(VertexNodes.Count!=0)
+            if (VertexNodes.Count != 0)
                 NewVertexId = VertexNodes.Max(x => x.VertexId);
-            if (VertexNodes.Count < (int)VertexNumber.CurrentItem)
+            if (VertexNodes.Count < (int)CollectionViewVertexNumber.CurrentItem)
             {
-                VertexNodes.Add(new VertexNode(NewVertexId+1, par));
+                VertexNodes.Add(new VertexNode(NewVertexId + 1, par));
             }
             else
             {
@@ -74,7 +88,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         #region Properties
 
-        public CollectionView VertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
+        public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
 
         public int SelectedVNumber
         {
@@ -119,6 +133,13 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         }
 
         #endregion
+
+        #region DelegateCommands
+        public DelegateCommand<string> AddVertexCommand { get; private set; }
+        public DelegateCommand RandomMatrixCommand { get; private set; }
+
+        #endregion
+
         private void AddColumnCollection(int count)
         {
             ColumnCollection = new ObservableCollection<DataGridColumn>();
@@ -135,13 +156,5 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
 
         }
-
-
-
-        #region DelegateCommands
-        public DelegateCommand<string> AddVertexCommand { get; private set; }
-
-
-        #endregion
     }
 }

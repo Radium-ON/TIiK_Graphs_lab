@@ -19,9 +19,10 @@
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,20,0" Width="100"
-                                  ItemsSource="{Binding VertexNumber}"
-                                  SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"/>
+                                  ItemsSource="{Binding CollectionViewVertexNumber}"
+                                  SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        <Button x:Name="btn_random" Content="Случайно" Margin="10,0,0,0" MinWidth="105"
+                                Command="{Binding RandomMatrixCommand}"/>
 
                     </StackPanel>
                     <GroupBox Header="Матрица смежности">

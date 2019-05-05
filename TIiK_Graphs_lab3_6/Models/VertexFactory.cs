@@ -30,6 +30,16 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
+        public static ObservableCollection<VertexNode> GetVertexes(int num)
+        {
+            var coll = new ObservableCollection<VertexNode>();
+            for (int i = 1; i <= num; i++)
+            {
+                coll.Add(new VertexNode(i, $"rand {i}"));
+            }
+            return coll;
+        }
+
         public static ObservableCollection<ObservableCollection<int>> GetWeightMatrix(int vertexNum)
         {
             var coll = new ObservableCollection<ObservableCollection<int>>();
@@ -44,9 +54,24 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
+        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum)
+        {
+            var random = new Random();
+            var coll = new ObservableCollection<ObservableCollection<int>>();
+            for (int i = 0; i < vertexNum; i++)
+            {
+                coll.Add(new ObservableCollection<int>());
+                for (int j = 0; j < vertexNum; j++)
+                {
+                    coll[i].Add(random.Next(0, 500));
+                }
+            }
+            return coll;
+        }
+
         public static ObservableCollection<ObservableCollection<int>> GetWeightMatrixCost()
         {
-            var coll = new  ObservableCollection<ObservableCollection<int>>
+            var coll = new ObservableCollection<ObservableCollection<int>>
             {
                 new ObservableCollection<int>{0,126,54,129,0,0,0,0,0,0,0,0,0}, //1
                 new ObservableCollection<int>{0,0,0,0,190,0,0,0,0,0,0,0,0},    //2
@@ -67,7 +92,7 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public static ObservableCollection<ObservableCollection<int>> GetWeightMatrixQuality()
         {
-            var coll = new  ObservableCollection<ObservableCollection<int>>
+            var coll = new ObservableCollection<ObservableCollection<int>>
             {
                 new ObservableCollection<int>{0,180,100,100,0,0,0,0,0,0,0,0,0},//1
                 new ObservableCollection<int>{0,0,0,0,200,0,0,0,0,0,0,0,0},    //2
