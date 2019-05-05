@@ -47,5 +47,26 @@ namespace TIiK_Graphs_lab3_6
                 }
             }
         }
+
+        public static void WidthBypass(ObservableCollection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
+        {
+            path.Clear();
+            queue.Enqueue(list[0]);
+            list[0].VStatus = VStatEnum.Visited;
+            while (queue.Count > 0)
+            {
+                var vertex = queue.Dequeue() as VertexNode;
+                path.Add(vertex);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (matrix[vertex.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoVisited)
+                    {
+                        queue.Enqueue(list[i]);
+                        list[i].VStatus = VStatEnum.Visited;
+                    }
+                }
+            }
+        }
+
     }
 }
