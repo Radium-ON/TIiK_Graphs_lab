@@ -10,8 +10,6 @@ namespace TIiK_Graphs_lab3_6.Models
 {
     public class VertexNode : ViewModelBase
     {
-        private int _vertexId;
-
         public int VertexId
         {
             get { return GetProperty(() => VertexId); }
@@ -28,10 +26,6 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public int Distance { get; set; }
 
-        private string _name;
-
-        private VStatEnum vStatus;
-
         public string Name
         {
             get { return GetProperty(() => Name); }
@@ -46,11 +40,7 @@ namespace TIiK_Graphs_lab3_6.Models
             VStatus = VStatEnum.NoViewed;
         }
 
-        public VStatEnum VStatus
-        {
-            get { return vStatus; }
-            set { vStatus = value; }
-        }
+        public VStatEnum VStatus { get; set; }
 
         public VertexNode(int vertexId, VStatEnum stat)//for width & depth
         {

@@ -78,13 +78,13 @@ namespace TIiK_Graphs_lab3_6
         {
             path.Clear();
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
-            var vertex = list.Single(x => x.VertexId == start);
-            vertex.Distance = 0;
-            vertex.ParentId = start;
-            vertex.VStatus = VStatEnum.Open;
+            var index = list.IndexOf(x => x.VertexId == start);
+            list[index].Distance = 0;
+            list[index].ParentId = start;
+            list[index].VStatus = VStatEnum.Open;
             while (list.Any((node => node.VStatus != VStatEnum.Closed)))
             {
-                var u = sortedList.First();//node with min distance
+                var u = sortedList.FirstOrDefault();//node with min distance
                 path.Add(u);
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -92,6 +92,7 @@ namespace TIiK_Graphs_lab3_6
                     {
                         list[i].Distance = matrix[u.VertexId - 1][i] + u.Distance;
                         list[i].VStatus = VStatEnum.Open;
+                        list[i].ParentId = u.VertexId;
                     }
                 }
                 list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
