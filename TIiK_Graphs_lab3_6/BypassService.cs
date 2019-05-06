@@ -72,7 +72,7 @@ namespace TIiK_Graphs_lab3_6
             }
         }
 
-        public static void DijkstraBypass(ObservableCollection<VertexNode> list,
+        public static RelaxationStats DijkstraBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
             ObservableCollection<VertexNode> path, int start, int finish)
         {
@@ -104,6 +104,7 @@ namespace TIiK_Graphs_lab3_6
                 }
                 list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
             }
+            return new RelaxationStats(list.Count, 3,4);
         }
     }
 }
