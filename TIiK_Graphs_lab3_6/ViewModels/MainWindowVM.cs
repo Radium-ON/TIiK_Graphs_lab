@@ -43,7 +43,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             AddColumnCollection(13);
         }
 
-
         private void LoadCostSets()
         {
             MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
@@ -55,7 +54,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             if (VertexNodes.Count == 0 || MatrixAdjacency.Count == 0)
                 return false;
-            if (StartBVertex==0 &&(SelectedBypass==2 || SelectedBypass==3))
+            if (StartBVertex == 0 && (SelectedBypass == 2 || SelectedBypass == 3))
                 return false;
             return true;
         }
@@ -79,13 +78,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     break;
             }
 
-        }
-
-        private void VertexNumber_CurrentChanged(object sender, EventArgs e)
-        {
-            int num = (int)((CollectionView)sender).CurrentItem;
-            MatrixAdjacency = VertexFactory.GetWeightMatrix(num);
-            AddColumnCollection(num);
         }
 
         private bool CanRandom()
@@ -125,19 +117,42 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
         }
 
+        private void VertexNumber_CurrentChanged(object sender, EventArgs e)
+        {
+            int num = (int)((CollectionView)sender).CurrentItem;
+            MatrixAdjacency = VertexFactory.GetWeightMatrix(num);
+            AddColumnCollection(num);
+        }
+
+        private void AddColumnCollection(int count)
+        {
+            ColumnCollection = new ObservableCollection<DataGridColumn>();
+            for (int i = 0; i < count; i++)
+            {
+                ColumnCollection.Add(
+                    new FirstFloor.ModernUI.Windows.Controls.DataGridTextColumn()
+                    {
+                        Binding = new Binding($"[{i}]"),
+                        Header = i + 1,
+                        //Width = new DataGridLength(1, DataGridLengthUnitType.Star),
+                        //MinWidth = 50
+                    });
+            }
+
+        }
+
         #region Backing Fields
         private readonly MatrixPageVM _matrixPageVm;
         private readonly EfficiencyPageVM _efficiencyPageVm;
         private ObservableCollection<ObservableCollection<int>> _matrixAdjaency;
-        private readonly ObservableCollection<DataGridColumn> _columnCollection;
-        //private ObservableCollection<VertexNode> _vertexNodes;
-        private string _newVertexName;
-        private string _newVertexId;
-
 
         #endregion
 
         #region Properties
+
+        //public MatrixPageVM MatrixPageVm { get; }
+
+        //public EfficiencyPageVM EfficiencyPageVM { get; }
 
         public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
 
@@ -179,6 +194,11 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
         }
 
+        public int NewVertexId
+        {
+            get { return GetProperty(() => NewVertexId); }
+            set { SetProperty(() => NewVertexId, value); }
+        }
 
         public ObservableCollection<VertexNode> VertexNodes
         {
@@ -198,9 +218,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             set { SetProperty(() => BypassCollection, value); }
         }
 
-
-
-
         public ObservableCollection<ObservableCollection<int>> MatrixAdjacency
         {
             get { return _matrixAdjaency; }
@@ -211,49 +228,23 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
         }
 
-        public MatrixPageVM MatrixPageVm { get; }
-
-        public EfficiencyPageVM EfficiencyPageVM { get; }
-
         public ObservableCollection<DataGridColumn> ColumnCollection
         {
             get { return GetProperty(() => ColumnCollection); }
             set { SetProperty(() => ColumnCollection, value); }
         }
 
-        public int NewVertexId
-        {
-            get { return GetProperty(() => NewVertexId); }
-            set { SetProperty(() => NewVertexId, value); }
-        }
-
         #endregion
 
         #region DelegateCommands
+
         public DelegateCommand<string> AddVertexCommand { get; private set; }
         public DelegateCommand RandomMatrixCommand { get; private set; }
         public DelegateCommand BypassCommand { get; private set; }
         public DelegateCommand LoadCostSetsCommand { get; private set; }
         public DelegateCommand LoadQualitySetsCommand { get; private set; }
 
-
         #endregion
 
-        private void AddColumnCollection(int count)
-        {
-            ColumnCollection = new ObservableCollection<DataGridColumn>();
-            for (int i = 0; i < count; i++)
-            {
-                ColumnCollection.Add(
-                    new FirstFloor.ModernUI.Windows.Controls.DataGridTextColumn()
-                    {
-                        Binding = new Binding($"[{i}]"),
-                        Header = i + 1,
-                        //Width = new DataGridLength(1, DataGridLengthUnitType.Star),
-                        //MinWidth = 50
-                    });
-            }
-
-        }
     }
 }
