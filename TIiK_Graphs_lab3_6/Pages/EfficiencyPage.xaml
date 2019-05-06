@@ -10,7 +10,7 @@
         <ScrollViewer>
             <StackPanel MinWidth="200">
                 <TextBlock Text="СЛОЖНОСТЬ АЛГОРИТМОВ" Style="{StaticResource Heading2}" Margin="0,0,0,10" />
-                <DataGrid Name="data_res" AutoGenerateColumns="False">
+                <DataGrid Name="data_res" ItemsSource="{Binding RelaxationScore}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Число вершин" Binding="{Binding VertexNumber}"/>
                         <DataGridTextColumn Header="Теор. значение" Binding="{Binding Theory}"/>

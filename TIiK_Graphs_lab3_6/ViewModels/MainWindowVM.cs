@@ -19,13 +19,10 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         public MainWindowVM()
         {
             //_matrixPageVm = new MatrixPageVM();
-            //_efficiencyPageVm = new EfficiencyPageVM();
-            //MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
-            //AddColumnCollection(MatrixAdjacency.Count);
-            //VertexNodes = VertexFactory.GetVertexDijkstra();
+            //_efficiencyPageVm = new EfficiencyPageVM();           
 
             VertexNodes = new ObservableCollection<VertexNode>();
-
+            RelaxationScore = new ObservableCollection<RelaxationStats>();
             BypassCollection = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
             RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
@@ -154,7 +151,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         //public EfficiencyPageVM EfficiencyPageVM { get; }
 
-        public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 12)));
+        public CollectionView CollectionViewVertexNumber { get; private set; } = new CollectionView(new List<int>(Enumerable.Range(2, 19)));
 
         public CollectionView CollectionViewBypassType { get; private set; } = new CollectionView(new List<string> { "В глубину", "В ширину", "Дейкстры", "A-star" });
 
@@ -232,6 +229,12 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             get { return GetProperty(() => ColumnCollection); }
             set { SetProperty(() => ColumnCollection, value); }
+        }
+
+        public ObservableCollection<RelaxationStats> RelaxationScore
+        {
+            get { return GetProperty(() => RelaxationScore); }
+            set { SetProperty(() => RelaxationScore, value); }
         }
 
         #endregion
