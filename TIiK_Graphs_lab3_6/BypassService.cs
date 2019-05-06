@@ -74,7 +74,7 @@ namespace TIiK_Graphs_lab3_6
 
         public static void DijkstraBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path, int start)
+            ObservableCollection<VertexNode> path, int start, int finish)
         {
             path.Clear();
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
@@ -85,7 +85,14 @@ namespace TIiK_Graphs_lab3_6
             while (list.Any((node => node.VStatus != VStatEnum.Closed)))
             {
                 var u = sortedList.FirstOrDefault();//node with min distance
+                if (u == null)
+                {
+                    u = sortedList.ElementAt(1);
+                }
                 path.Add(u);
+
+                if (u.VertexId == finish) break;
+
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)

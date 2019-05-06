@@ -73,7 +73,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 2:
-                    BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
+                    BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
                     break;
                 case 3:
                     break;

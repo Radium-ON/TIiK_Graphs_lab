@@ -16,7 +16,7 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer Padding="2">
             <WrapPanel Orientation="Horizontal">
-                <StackPanel Orientation="Vertical" Margin="10,0,0,20">
+                <StackPanel Margin="10,0,0,20">
                     <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,20,0" Width="100"
@@ -78,7 +78,7 @@
                     </GroupBox>
 
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                <StackPanel Margin="10,0,0,0">
                     <TextBlock Text="Обход и поиск" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <ComboBox x:Name="cmb_set_travel" MinWidth="40" Margin="0,0,20,0" Width="100"
