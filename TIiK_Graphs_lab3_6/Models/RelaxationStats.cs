@@ -27,7 +27,11 @@ namespace TIiK_Graphs_lab3_6.Models
             set { SetProperty(() => Theory, value); }
         } //Теор. значение
 
-        public int DijkstraRelax { get; set; }//Релакс. Дейкстры
+        public int DijkstraRelax
+        {
+            get => VertexNumber * VertexNumber + EdgesNumber;
+            set { SetProperty(()=>DijkstraRelax, value); }
+        } //Релакс. Дейкстры
 
         public int StarRelax { get; set; }//Релакс. A-Star
 

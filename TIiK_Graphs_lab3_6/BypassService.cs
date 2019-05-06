@@ -77,6 +77,7 @@ namespace TIiK_Graphs_lab3_6
             ObservableCollection<VertexNode> path, int start, int finish)
         {
             path.Clear();
+            int relax = 0;
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
             list[index].Distance = 0;
@@ -84,11 +85,7 @@ namespace TIiK_Graphs_lab3_6
             list[index].VStatus = VStatEnum.Open;
             while (list.Any((node => node.VStatus != VStatEnum.Closed)))
             {
-                var u = sortedList.FirstOrDefault();//node with min distance
-                if (u == null)
-                {
-                    u = sortedList.ElementAt(1);
-                }
+                var u = sortedList.FirstOrDefault() ?? sortedList.ElementAtOrDefault(1);//node with min distance
                 path.Add(u);
 
                 if (u.VertexId == finish) break;
@@ -100,11 +97,13 @@ namespace TIiK_Graphs_lab3_6
                         list[i].Distance = matrix[u.VertexId - 1][i] + u.Distance;
                         list[i].VStatus = VStatEnum.Open;
                         list[i].ParentId = u.VertexId;
+                        relax++;
+
                     }
                 }
                 list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
             }
-            return new RelaxationStats(list.Count, 3,4);
+            return new RelaxationStats(list.Count, relax, relax);
         }
     }
 }
