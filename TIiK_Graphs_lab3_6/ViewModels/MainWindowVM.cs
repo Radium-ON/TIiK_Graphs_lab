@@ -55,6 +55,8 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             if (VertexNodes.Count == 0 || MatrixAdjacency.Count == 0)
                 return false;
+            if (StartBVertex==0 &&(SelectedBypass==2 || SelectedBypass==3))
+                return false;
             return true;
         }
 
