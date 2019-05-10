@@ -23,7 +23,7 @@ namespace TIiK_Graphs_lab3_6
 
         /// <summary>
         /// Исправить обход графов с циклами (проверять посещение всех вершин)
-        /// добавить дейкстры
+        /// 
         /// </summary>
 
 
@@ -77,27 +77,34 @@ namespace TIiK_Graphs_lab3_6
             ObservableCollection<VertexNode> path, int start, int finish)
         {
             path.Clear();
-            int relax = 0;
+            int relax=0;
+            int newD;
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
             list[index].Distance = 0;
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
-            while (list.Any((node => node.VStatus != VStatEnum.Closed)))
+            while (list.Any(node => node.VStatus == VStatEnum.NoViewed))
             {
-                var u = sortedList.FirstOrDefault() ?? sortedList.ElementAtOrDefault(1);//node with min distance
+                var u = sortedList.FirstOrDefault();//node with min distance
                 path.Add(u);
-
+                
                 if (u.VertexId == finish) break;
 
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
                     {
-                        list[i].Distance = matrix[u.VertexId - 1][i] + u.Distance;
+                        newD = matrix[u.VertexId - 1][i] + u.Distance;
+                        if (newD < list[i].Distance)
+                        {
+                            list[i].Distance = newD;
+                            relax++;
+                        }
+
                         list[i].VStatus = VStatEnum.Open;
                         list[i].ParentId = u.VertexId;
-                        relax++;
+
 
                     }
                 }

@@ -80,19 +80,19 @@ namespace TIiK_Graphs_lab3_6.Models
         {
             var coll = new ObservableCollection<ObservableCollection<int>>
             {
-                new ObservableCollection<int>{0,126,54,129,0,0,0,0,0,0,0,0,0}, //1
-                new ObservableCollection<int>{0,0,0,0,190,0,0,0,0,0,0,0,0},    //2
-                new ObservableCollection<int>{0,0,0,69,139,0,0,0,0,0,0,0,0},   //3
-                new ObservableCollection<int>{0,0,0,0,0,53,0,0,0,0,0,0,0},     //4
-                new ObservableCollection<int>{0,0,0,0,0,154,174,229,0,0,0,0,0},//5
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,56,0,0,0,0},     //6
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,348},    //7
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,190,0,0,0},    //8
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,57,0,0,0},     //9
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,295,0,138},  //10
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,356,238},  //11
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,145},    //12
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,0},      //13
+                new ObservableCollection<int>{0,126,54,129,0,0,0,0,0,0,0,0,0},     //1
+                new ObservableCollection<int>{126,0,0,0,190,0,0,0,0,0,0,0,0},      //2
+                new ObservableCollection<int>{54,0,0,69,139,0,0,0,0,0,0,0,0},      //3
+                new ObservableCollection<int>{129,0,69,0,0,53,0,0,0,0,0,0,0},      //4
+                new ObservableCollection<int>{0,190,139,0,0,154,174,229,0,0,0,0,0},//5
+                new ObservableCollection<int>{0,0,0,53,154,0,0,0,56,0,0,0,0},      //6
+                new ObservableCollection<int>{0,0,0,0,174,0,0,0,0,0,0,0,348},      //7
+                new ObservableCollection<int>{0,0,0,0,229,0,0,0,0,190,0,0,0},      //8
+                new ObservableCollection<int>{0,0,0,0,0,56,0,0,0,57,0,0,0},        //9
+                new ObservableCollection<int>{0,0,0,0,0,0,0,190,57,0,295,0,138},   //10
+                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,356,238},      //11
+                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,356,0,145},      //12
+                new ObservableCollection<int>{0,0,0,0,0,0,348,0,0,138,238,145,0}   //13
             };
             return coll;
         }
@@ -101,19 +101,19 @@ namespace TIiK_Graphs_lab3_6.Models
         {
             var coll = new ObservableCollection<ObservableCollection<int>>
             {
-                new ObservableCollection<int>{0,180,100,100,0,0,0,0,0,0,0,0,0},//1
-                new ObservableCollection<int>{0,0,0,0,200,0,0,0,0,0,0,0,0},    //2
-                new ObservableCollection<int>{0,0,0,120,100,0,0,0,0,0,0,0,0},  //3
-                new ObservableCollection<int>{0,0,0,0,0,100,0,0,0,0,0,0,0},    //4
-                new ObservableCollection<int>{0,0,0,0,0,180,100,200,0,0,0,0,0},//5
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,100,0,0,0,0},    //6
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,200},    //7
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,180,0,0,0},    //8
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,120,0,0,0},    //9
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,180,0,200},  //10
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,200,200},  //11
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,180},    //12
-                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,0,0,0},      //13
+                new ObservableCollection<int>{0,180,100,100,0,0,0,0,0,0,0,0,0},    //1
+                new ObservableCollection<int>{180,0,0,0,200,0,0,0,0,0,0,0,0},      //2
+                new ObservableCollection<int>{100,0,0,120,100,0,0,0,0,0,0,0,0},    //3
+                new ObservableCollection<int>{100,0,120,0,0,100,0,0,0,0,0,0,0},    //4
+                new ObservableCollection<int>{0,200,100,0,0,180,100,200,0,0,0,0,0},//5
+                new ObservableCollection<int>{0,0,0,100,180,0,0,0,100,0,0,0,0},    //6
+                new ObservableCollection<int>{0,0,0,0,100,0,0,0,0,0,0,0,200},      //7
+                new ObservableCollection<int>{0,0,0,0,200,0,0,0,0,180,0,0,0},      //8
+                new ObservableCollection<int>{0,0,0,0,0,100,0,0,0,120,0,0,0},      //9
+                new ObservableCollection<int>{0,0,0,0,0,0,0,180,120,0,180,0,200},  //10
+                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,180,0,200,200},    //11
+                new ObservableCollection<int>{0,0,0,0,0,0,0,0,0,0,200,0,180},      //12
+                new ObservableCollection<int>{0,0,0,0,0,0,200,0,0,200,200,180,0},  //13
             };
             return coll;
         }

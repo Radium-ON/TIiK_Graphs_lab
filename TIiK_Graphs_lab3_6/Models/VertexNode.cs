@@ -35,7 +35,7 @@ namespace TIiK_Graphs_lab3_6.Models
         public VertexNode(int vertexId, string name)//for Dijkstra
         {
             VertexId = vertexId;
-            Distance = -1;
+            Distance = 10000;
             Name = name;
             VStatus = VStatEnum.NoViewed;
         }
@@ -46,6 +46,15 @@ namespace TIiK_Graphs_lab3_6.Models
         {
             VertexId = vertexId;
             VStatus = stat;
-        }       
+        }
+
+        #region Overrides of Object
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        #endregion
     }
 }
