@@ -8,7 +8,9 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="588.8" d:DesignWidth="511.6">
-
+<UserControl.DataContext>
+    <viewModels:MatrixPageVM/>
+</UserControl.DataContext>
     <UserControl.Resources>
         <viewModels:SearchToVisibilityConverter x:Key="search_to_visibility"/>
         <viewModels:RowNumberConverter x:Key="row_number_converter"/>

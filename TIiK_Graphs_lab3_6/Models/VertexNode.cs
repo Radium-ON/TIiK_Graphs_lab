@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BindableBase = DevExpress.Mvvm.BindableBase;
 
 namespace TIiK_Graphs_lab3_6.Models
 {
-    public class VertexNode : ViewModelBase
+    public class VertexNode : BindableBase
     {
         public int VertexId
         {
