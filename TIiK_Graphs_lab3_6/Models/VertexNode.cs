@@ -1,10 +1,11 @@
-﻿using Prism.Mvvm;
+﻿using DevExpress.Mvvm;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevExpress.Mvvm;
+using System.Windows;
 
 namespace TIiK_Graphs_lab3_6.Models
 {
@@ -15,10 +16,10 @@ namespace TIiK_Graphs_lab3_6.Models
             get { return GetProperty(() => VertexId); }
             set
             {
-                if(value==0)
-                    SetProperty(()=> VertexId, 1);
+                if (value == 0)
+                    SetProperty(() => VertexId, 1);
                 else
-                    SetProperty(()=> VertexId, value);
+                    SetProperty(() => VertexId, value);
             }
         }
 
@@ -26,11 +27,15 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public int Distance { get; set; }
 
+        public Point Position { get; set; }
+
         public string Name
         {
             get { return GetProperty(() => Name); }
-            set { SetProperty(()=>Name, value); }
-        }       
+            set { SetProperty(() => Name, value); }
+        }
+
+        public VStatEnum VStatus { get; set; }
 
         public VertexNode(int vertexId, string name)//for Dijkstra
         {
@@ -40,14 +45,13 @@ namespace TIiK_Graphs_lab3_6.Models
             VStatus = VStatEnum.NoViewed;
         }
 
-        public VStatEnum VStatus { get; set; }
-
-        public VertexNode(int vertexId, VStatEnum stat)//for width & depth
+        public VertexNode(int vertexId, string name, double x, double y)//for A*
         {
             VertexId = vertexId;
-            VStatus = stat;
+            Distance = 10000;
+            Name = name;
+            Position = new Point(x,y);
         }
-
         #region Overrides of Object
 
         public override string ToString()

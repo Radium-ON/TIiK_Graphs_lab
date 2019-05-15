@@ -13,19 +13,19 @@ namespace TIiK_Graphs_lab3_6.Models
         {
             var coll = new ObservableCollection<VertexNode>
             {
-                new VertexNode(1, "Новосибирск"),
-                new VertexNode(2, "Прага"),
-                new VertexNode(3, "Москва"),
-                new VertexNode(4, "Санкт-Петербург"),
-                new VertexNode(5, "Рим"),
-                new VertexNode(6, "Милан"),
-                new VertexNode(7, "Цюрих"),
-                new VertexNode(8, "Лондон"),
-                new VertexNode(9, "Неаполь"),
-                new VertexNode(10, "Верона"),
-                new VertexNode(11, "Франкфурт"),
-                new VertexNode(12, "Вена"),
-                new VertexNode(13, "Катания"),
+                new VertexNode(1, "Новосибирск",55.030199, 82.920430),
+                new VertexNode(2, "Прага",50.080293, 14.428983),
+                new VertexNode(3, "Москва",55.755814, 37.617635),
+                new VertexNode(4, "Санкт-Петербург",59.939095, 30.315868),
+                new VertexNode(5, "Рим",41.902689, 12.496176),
+                new VertexNode(6, "Милан",45.469436, 9.180621),
+                new VertexNode(7, "Цюрих",47.386966, 8.534139),
+                new VertexNode(8, "Лондон",51.507351, -0.127660),
+                new VertexNode(9, "Неаполь",40.853197, 14.249544),
+                new VertexNode(10, "Верона",45.441586, 10.973442),
+                new VertexNode(11, "Франкфурт",50.106045, 8.679486),
+                new VertexNode(12, "Вена",48.206481, 16.363451),
+                new VertexNode(13, "Катания",37.525338, 15.066203),
             };
             return coll;
         }

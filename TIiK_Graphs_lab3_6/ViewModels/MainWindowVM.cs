@@ -72,6 +72,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     RelaxationScore.Add(BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex));
                     break;
                 case 3:
+                    RelaxationScore.Add(BypassService.AStarBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex));
                     break;
             }
 
