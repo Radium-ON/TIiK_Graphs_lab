@@ -38,7 +38,15 @@ namespace TIiK_Graphs_lab3_6.Models
             var coll = new ObservableCollection<VertexNode>();
             for (int i = 1; i <= num; i++)
             {
-                coll.Add(new VertexNode(i, $"rand {i}",rand.NextDouble()*180-90,rand.NextDouble()*360-180));
+                coll.Add(new VertexNode(i, $"rand {i}", new int[rand.Next(1, 11)], rand.NextDouble() * 180 - 90, rand.NextDouble() * 360 - 180));
+            }
+
+            foreach (var node in coll)
+            {
+                for (var i = 0; i < node.Edges.Length; i++)
+                {
+                    node.Edges[i] = rand.Next(1, num + 1);
+                }
             }
             return coll;
         }
@@ -57,7 +65,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum, int step)
+        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum, int step, ObservableCollection<VertexNode> list)
         {
             var random = new Random();
             var coll = new ObservableCollection<ObservableCollection<int>>();
@@ -72,7 +80,10 @@ namespace TIiK_Graphs_lab3_6.Models
                     }
                     else
                     {
-                        coll[i].Add(random.Next(step+1));
+                        if (list[i].Edges.Contains(j))
+                            coll[i].Add(random.Next(step + 1));
+                        else
+                            coll[i].Add(0);
                     }
                 }
             }

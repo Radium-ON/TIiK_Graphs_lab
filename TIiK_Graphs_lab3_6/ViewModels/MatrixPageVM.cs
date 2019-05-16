@@ -100,8 +100,8 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void RandomMatrix()
         {
-            MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber, RandomStep);
-            VertexNodes = VertexFactory.GetVertexes(MatrixAdjacency.Count);
+            VertexNodes = VertexFactory.GetVertexes(SelectedVNumber);
+            MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber, RandomStep, VertexNodes);
         }
 
         private bool CanAddVertex(string par)

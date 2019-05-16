@@ -39,6 +39,8 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public VStatEnum VStatus { get; set; }
 
+        public int[] Edges { get; set; }//размер - число ребер, значения - номера смежных вершин
+
         public VertexNode(int vertexId, string name)//for Dijkstra
         {
             VertexId = vertexId;
@@ -54,6 +56,15 @@ namespace TIiK_Graphs_lab3_6.Models
             Distance = 10000;
             Name = name;
             Position = new Point(x, y);
+        }
+
+        public VertexNode(int vertexId, string name, int[] edges, double x, double y)//for A*
+        {
+            VertexId = vertexId;
+            Distance = 10000;
+            Name = name;
+            Position = new Point(x, y);
+            Edges = edges;
         }
         #region Overrides of Object
 
