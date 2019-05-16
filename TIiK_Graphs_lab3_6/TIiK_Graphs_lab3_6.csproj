@@ -76,7 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BypassService.cs" />
+    <Compile Include="Services\BypassService.cs" />
     <Compile Include="Models\RelaxationStats.cs" />
     <Compile Include="Models\VertexFactory.cs" />
     <Compile Include="ViewModels\DataGridColumnsBehavior.cs" />

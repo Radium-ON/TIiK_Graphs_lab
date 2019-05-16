@@ -9,6 +9,8 @@ namespace TIiK_Graphs_lab3_6.Models
 {
     public static class VertexFactory
     {
+        //random.NextDouble() * (maxValue - minValue) + minValue
+        //случайные смежные вершины. их заполнить числами, остальное 0
         public static ObservableCollection<VertexNode> GetVertexDijkstra()
         {
             var coll = new ObservableCollection<VertexNode>
@@ -32,10 +34,11 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public static ObservableCollection<VertexNode> GetVertexes(int num)
         {
+            var rand = new Random();
             var coll = new ObservableCollection<VertexNode>();
             for (int i = 1; i <= num; i++)
             {
-                coll.Add(new VertexNode(i, $"rand {i}"));
+                coll.Add(new VertexNode(i, $"rand {i}",rand.NextDouble()*180-90,rand.NextDouble()*360-180));
             }
             return coll;
         }
@@ -54,7 +57,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum)
+        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum, int step)
         {
             var random = new Random();
             var coll = new ObservableCollection<ObservableCollection<int>>();
@@ -69,7 +72,7 @@ namespace TIiK_Graphs_lab3_6.Models
                     }
                     else
                     {
-                        coll[i].Add(random.Next(0, 2));
+                        coll[i].Add(random.Next(step+1));
                     }
                 }
             }

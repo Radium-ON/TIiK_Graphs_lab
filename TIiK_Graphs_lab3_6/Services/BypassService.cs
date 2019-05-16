@@ -1,15 +1,12 @@
 ﻿using DevExpress.Mvvm.Native;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using TIiK_Graphs_lab3_6.Models;
 
-namespace TIiK_Graphs_lab3_6
+namespace TIiK_Graphs_lab3_6.Services
 {
     public enum VStatEnum
     {
@@ -29,7 +26,7 @@ namespace TIiK_Graphs_lab3_6
 
         private static int GetHeuristicPathLength(Point from, Point to)
         {
-            return (int) (Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y));
+            return (int)(Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y));
         }
 
         public static void DepthBypass(ObservableCollection<VertexNode> list,
@@ -76,24 +73,26 @@ namespace TIiK_Graphs_lab3_6
             }
         }
 
-        public static RelaxationStats DijkstraBypass(ObservableCollection<VertexNode> list,
+        public static bool DijkstraBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
             ObservableCollection<VertexNode> path, int start, int finish)
         {
             path.Clear();
-            int relax=0;
+            int relax = 0;
             int newD;
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
             list[index].Distance = 0;
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
-            while (list.Any(node => node.VStatus == VStatEnum.NoViewed))
+            while (list.Any(node => node.VStatus == VStatEnum.Open))
             {
                 var u = sortedList.FirstOrDefault();//node with min distance
+                if (u == null)
+                    return false;
                 path.Add(u);
-                
-                if (u.VertexId == finish) break;
+
+                if (u.VertexId == finish) return true;
 
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -114,33 +113,33 @@ namespace TIiK_Graphs_lab3_6
                 }
                 list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
             }
-            return new RelaxationStats(list.Count, relax, relax);
+            return true;
         }
 
-        public static RelaxationStats AStarBypass(ObservableCollection<VertexNode> list,
+        public static bool AStarBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
             ObservableCollection<VertexNode> path, int start, int finish)
         {
             path.Clear();
-            int relax=0;
+            int relax = 0;
             int newD;
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
-            list[index].Distance = GetHeuristicPathLength(list[index].Position,list[finish-1].Position);
+            list[index].Distance = GetHeuristicPathLength(list[index].Position, list[finish - 1].Position);
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
-            while (list.Any(node => node.VStatus == VStatEnum.NoViewed))
+            while (list.Any(node => node.VStatus == VStatEnum.Open))
             {
                 var u = sortedList.FirstOrDefault();//node with min distance
                 path.Add(u);
-                
-                if (u.VertexId == finish) break;
+
+                if (u.VertexId == finish) return true;
 
                 for (int i = 0; i < list.Count; i++)
                 {
                     if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
                     {
-                        newD = matrix[u.VertexId - 1][i] + u.Distance + GetHeuristicPathLength(list[i].Position,list[finish-1].Position);
+                        newD = matrix[u.VertexId - 1][i] + u.Distance + GetHeuristicPathLength(list[i].Position, list[finish - 1].Position);
                         if (newD < list[i].Distance)
                         {
                             list[i].Distance = newD;
@@ -155,7 +154,8 @@ namespace TIiK_Graphs_lab3_6
                 }
                 list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
             }
-            return new RelaxationStats(list.Count, relax, relax);
+
+            return list[finish - 1].ParentId != -1;
         }
     }
 }

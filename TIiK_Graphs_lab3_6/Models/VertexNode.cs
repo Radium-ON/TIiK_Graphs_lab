@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TIiK_Graphs_lab3_6.Services;
 using BindableBase = DevExpress.Mvvm.BindableBase;
 
 namespace TIiK_Graphs_lab3_6.Models
@@ -44,6 +45,7 @@ namespace TIiK_Graphs_lab3_6.Models
             Distance = 10000;
             Name = name;
             VStatus = VStatEnum.NoViewed;
+            ParentId = -1;
         }
 
         public VertexNode(int vertexId, string name, double x, double y)//for A*
@@ -51,7 +53,7 @@ namespace TIiK_Graphs_lab3_6.Models
             VertexId = vertexId;
             Distance = 10000;
             Name = name;
-            Position = new Point(x,y);
+            Position = new Point(x, y);
         }
         #region Overrides of Object
 

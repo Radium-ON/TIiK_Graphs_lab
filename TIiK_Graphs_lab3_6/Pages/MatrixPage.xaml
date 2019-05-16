@@ -8,9 +8,9 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="588.8" d:DesignWidth="511.6">
-<UserControl.DataContext>
-    <viewModels:MatrixPageVM/>
-</UserControl.DataContext>
+    <UserControl.DataContext>
+        <viewModels:MatrixPageVM/>
+    </UserControl.DataContext>
     <UserControl.Resources>
         <viewModels:SearchToVisibilityConverter x:Key="search_to_visibility"/>
         <viewModels:RowNumberConverter x:Key="row_number_converter"/>
@@ -19,12 +19,16 @@
         <ScrollViewer Padding="2">
             <WrapPanel Orientation="Horizontal">
                 <StackPanel Margin="10,0,0,20">
-                    <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}" Margin="5,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,10">
+                        <TextBlock Text="Число вершин" Style="{StaticResource Emphasis}"/>
+                        <TextBlock Text="Шаг веса" Style="{StaticResource Emphasis}" Margin="40,0,0,0"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
                         <ComboBox x:Name="cmb_vertex_num" MinWidth="80" Margin="0,0,20,0" Width="100"
                                   ItemsSource="{Binding CollectionViewVertexNumber}"
                                   SelectedItem="{Binding SelectedVNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button x:Name="btn_random" Margin="10,0,0,0" MinWidth="105"
+                        <TextBox x:Name="tbox_random_step" MinWidth="30" Text="{Binding RandomStep, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button x:Name="btn_random" Margin="20,0,0,0" MinWidth="105"
                                 Command="{Binding RandomMatrixCommand}" Content="Случайно">
                             <Button.ContextMenu>
                                 <ContextMenu>
@@ -45,9 +49,7 @@
                                   viewModels:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <DataGrid.RowHeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=., 
-                        RelativeSource={RelativeSource AncestorType=DataGridRow},
-                        Converter={StaticResource row_number_converter}}" FontWeight="Bold" FontSize="14" MinWidth="20"/>
+                                    <TextBlock Text="{Binding ., Converter={StaticResource row_number_converter}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" FontWeight="Bold" FontSize="14" MinWidth="20"/>
                                 </DataTemplate>
                             </DataGrid.RowHeaderTemplate>
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using FirstFloor.ModernUI.Windows.Controls;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,9 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
-using DevExpress.Mvvm;
-using FirstFloor.ModernUI.Windows.Controls;
 using TIiK_Graphs_lab3_6.Models;
+using TIiK_Graphs_lab3_6.Services;
 
 namespace TIiK_Graphs_lab3_6.ViewModels
 {
@@ -45,15 +46,24 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         {
             if (VertexNodes.Count == 0 || MatrixAdjacency.Count == 0)
                 return false;
-            if (StartBVertex == 0 && (SelectedBypass == 2 || SelectedBypass == 3))
+            if (StartBVertex == 0 ||
+                StartBVertex > SelectedVNumber ||
+                FinishBVertex > SelectedVNumber &&
+                (SelectedBypass == 2 || SelectedBypass == 3))
                 return false;
             return true;
         }
 
         private void PerformBypass()
         {
-            foreach (var node in VertexNodes) { node.VStatus = VStatEnum.NoViewed; }
+            foreach (var node in VertexNodes)
+            {
+                node.VStatus = VStatEnum.NoViewed;
+                node.Distance = 10000;
+                node.ParentId = -1;
+            }
 
+            bool result = true;
             switch (SelectedBypass)
             {
                 case 0:
@@ -63,25 +73,34 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                     BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 2:
-                    BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
+                    result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
                     break;
                 case 3:
-                    BypassService.AStarBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
+                    result = BypassService.AStarBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
                     break;
+            }
+
+            if (!result)
+            {
+                new ModernDialog()
+                {
+                    Title = "Обход графа",
+                    Content = "Не удалось дойти до целевой вершины графа"
+                }.ShowDialog();
             }
 
         }
 
         private bool CanRandom()
         {
-            if (SelectedVNumber == 0)
+            if (SelectedVNumber == 0 || RandomStep == 0)
                 return false;
             return true;
         }
 
         private void RandomMatrix()
         {
-            MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber);
+            MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber, RandomStep);
             VertexNodes = VertexFactory.GetVertexes(MatrixAdjacency.Count);
         }
 
@@ -136,7 +155,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         #region Backing Fields
         private ObservableCollection<ObservableCollection<int>> _matrixAdjaency;
 
-        
+
 
         #endregion
 
@@ -188,6 +207,12 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             set { SetProperty(() => NewVertexId, value); }
         }
 
+        public int RandomStep
+        {
+            get { return GetProperty(() => RandomStep); }
+            set { SetProperty(() => RandomStep, value); }
+        }
+
         public ObservableCollection<VertexNode> VertexNodes
         {
             get { return GetProperty(() => VertexNodes); }
@@ -197,8 +222,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                 //RaisePropertyChanged("VertexNodes");
             }
         }
-
-
 
         public ObservableCollection<VertexNode> BypassCollection
         {
@@ -222,7 +245,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             set { SetProperty(() => ColumnCollection, value); }
         }
 
-        
+
 
         #endregion
 
@@ -235,6 +258,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         public DelegateCommand LoadQualitySetsCommand { get; private set; }
 
         #endregion
-        
+
     }
 }
