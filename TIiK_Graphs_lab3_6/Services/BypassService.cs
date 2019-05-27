@@ -24,12 +24,12 @@ namespace TIiK_Graphs_lab3_6.Services
         /// 
         /// </summary>
 
-        private static int GetHeuristicPathLength(Point from, Point to)
+        private static int GetHeuristicPath(Point from, Point to)
         {
-            return (int)(Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y));
+            return (int)(Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y)); 
         }
 
-        public static void DepthBypass(ObservableCollection<VertexNode> list,
+        public static bool DepthBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
             ObservableCollection<VertexNode> path)
         {
@@ -38,7 +38,7 @@ namespace TIiK_Graphs_lab3_6.Services
             list[0].VStatus = VStatEnum.Open;
             while (stack.Count > 0)
             {
-                var vertex = stack.Pop() as VertexNode;
+                var vertex = stack.Pop();
                 path.Add(vertex);
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -49,9 +49,10 @@ namespace TIiK_Graphs_lab3_6.Services
                     }
                 }
             }
+            return list.All(node => node.VStatus != VStatEnum.NoViewed);
         }
 
-        public static void WidthBypass(ObservableCollection<VertexNode> list,
+        public static bool WidthBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
             ObservableCollection<VertexNode> path)
         {
@@ -71,11 +72,12 @@ namespace TIiK_Graphs_lab3_6.Services
                     }
                 }
             }
+            return list.All(node => node.VStatus != VStatEnum.NoViewed);
         }
 
         public static bool DijkstraBypass(ObservableCollection<VertexNode> list,
             ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path, int start, int finish)
+            ObservableCollection<VertexNode> path, int start)
         {
             path.Clear();
             int relax = 0;
@@ -91,8 +93,6 @@ namespace TIiK_Graphs_lab3_6.Services
                 if (u == null)
                     return false;
                 path.Add(u);
-
-                if (u.VertexId == finish) return true;
 
                 for (int i = 0; i < list.Count; i++)
                 {
@@ -123,9 +123,10 @@ namespace TIiK_Graphs_lab3_6.Services
             path.Clear();
             int relax = 0;
             int newD;
+            Point finishPoint = list[finish - 1].Position;
             var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
-            list[index].Distance = GetHeuristicPathLength(list[index].Position, list[finish - 1].Position);
+            list[index].Distance = GetHeuristicPath(list[index].Position, list[finish - 1].Position);
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
             while (list.Any(node => node.VStatus == VStatEnum.Open))
@@ -139,7 +140,7 @@ namespace TIiK_Graphs_lab3_6.Services
                 {
                     if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
                     {
-                        newD = matrix[u.VertexId - 1][i] + u.Distance + GetHeuristicPathLength(list[i].Position, list[finish - 1].Position);
+                        newD = matrix[u.VertexId - 1][i] + u.Distance + GetHeuristicPath(list[i].Position, finishPoint) - GetHeuristicPath(u.Position, finishPoint);
                         if (newD < list[i].Distance)
                         {
                             list[i].Distance = newD;

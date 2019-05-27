@@ -67,13 +67,13 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             switch (SelectedBypass)
             {
                 case 0:
-                    BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
+                    result = BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 1:
-                    BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
+                    result = BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
                     break;
                 case 2:
-                    result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
+                    result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
                     break;
                 case 3:
                     result = BypassService.AStarBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex, FinishBVertex);
@@ -85,7 +85,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
                 new ModernDialog()
                 {
                     Title = "Обход графа",
-                    Content = "Не удалось дойти до целевой вершины графа"
+                    Content = "Не удалось дойти до целевой вершины графа (нельзя обойти все вершины)"
                 }.ShowDialog();
             }
 
