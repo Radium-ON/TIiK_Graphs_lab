@@ -11,7 +11,7 @@ namespace TIiK_Graphs_lab3_6.Models
     {
         //random.NextDouble() * (maxValue - minValue) + minValue
         //случайные смежные вершины. их заполнить числами, остальное 0
-        public static Collection<VertexNode> GetVertexDijkstra()
+        public static Collection<VertexNode> GetVerticesDijkstra()
         {
             var coll = new Collection<VertexNode>
             {
@@ -32,7 +32,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        public static Collection<VertexNode> GetVertexes(int num)
+        public static Collection<VertexNode> GetVertices(int num)
         {
             var rand = new Random();
             var coll = new Collection<VertexNode>();
@@ -65,7 +65,7 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum, int step, ObservableCollection<VertexNode> list)
+        public static ObservableCollection<ObservableCollection<int>> GetRandomMatrix(int vertexNum, int step, Collection<VertexNode> list)
         {
             var random = new Random();
             var coll = new ObservableCollection<ObservableCollection<int>>();

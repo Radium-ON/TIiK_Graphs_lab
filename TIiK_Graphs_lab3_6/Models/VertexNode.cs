@@ -74,7 +74,6 @@ namespace TIiK_Graphs_lab3_6.Models
         {
             return Name;
         }
-
         #endregion
     }
 }

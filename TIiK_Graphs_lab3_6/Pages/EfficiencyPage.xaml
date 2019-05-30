@@ -26,7 +26,7 @@
                                 Text="{Binding TestsNum, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Button x:Name="btn_path" Content="Запуск теста" Margin="10,0,0,0" MinWidth="105"
-                                Command="{Binding BypassCommand}"/>
+                                Command="{Binding TestStartCommand}"/>
 
                         </StackPanel>
                     </StackPanel>

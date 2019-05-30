@@ -21,7 +21,7 @@ namespace TIiK_Graphs_lab3_6.Services
         private static Queue<VertexNode> queue = new Queue<VertexNode>();
 
         private static Collection<VertexNode> GetNeighbours(ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> list, VertexNode node)
+            Collection<VertexNode> list, VertexNode node)
         {
             var result = new Collection<VertexNode>();
             for (var i = 0; i < list.Count; i++)
@@ -168,5 +168,80 @@ namespace TIiK_Graphs_lab3_6.Services
             return list[finish - 1].ParentId != -1; //не дошли до цели
         }
 
+        //методы возвращают число! только для проверки релаксаций!
+
+        public static int DijkstraBypass(Collection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, int start)
+        {
+            int relax = 0;
+            int newDistance;
+            var sortedList = list.Where(node => node.VStatus != VStatEnum.Closed).OrderBy(node => node.Distance);
+            var index = list.IndexOf(x => x.VertexId == start);
+            list[index].Distance = 0;
+            list[index].ParentId = start;
+            list[index].VStatus = VStatEnum.Open;
+            do
+            {
+                var currentNode = sortedList.FirstOrDefault(); //node with min distance
+                if (currentNode == null)
+                    break;
+
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
+                {
+                    if (node.VStatus == VStatEnum.Closed) continue;
+
+                    newDistance = matrix[currentNode.VertexId - 1][node.VertexId - 1] + currentNode.Distance;
+                    if (node.VStatus == VStatEnum.NoViewed || newDistance < node.Distance)
+                    {
+                        node.Distance = newDistance;
+                        node.ParentId = currentNode.VertexId;
+                        if (node.VStatus != VStatEnum.Open) node.VStatus = VStatEnum.Open;
+                        relax++;
+                    }
+                }
+                currentNode.VStatus = VStatEnum.Closed;
+            } while (list.Any(node => node.VStatus == VStatEnum.Open));
+            return relax;
+        }
+
+        public static int AStarBypass(Collection<VertexNode> list, ObservableCollection<ObservableCollection<int>> matrix, int start, int finish)
+        {
+            int relax = 0;
+            int newDistance;
+            Point finishPoint = list[finish - 1].Position;
+            foreach (var node in list)
+            {
+                node.HeuristicLength = GetHeuristicPath(node.Position, finishPoint);
+            }
+            var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance + node.HeuristicLength);
+            var index = list.IndexOf(x => x.VertexId == start);
+            list[index].Distance = 0;
+            list[index].ParentId = start;
+            list[index].VStatus = VStatEnum.Open;
+            do
+            {
+                var currentNode = sortedList.FirstOrDefault(); //node with min distance
+                if (currentNode == null)
+                    break;
+
+                if (currentNode.VertexId == finish) return relax;
+
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
+                {
+                    if (node.VStatus == VStatEnum.Closed) continue;
+                    newDistance = matrix[currentNode.VertexId - 1][node.VertexId - 1] + currentNode.Distance +
+                                  node.HeuristicLength - currentNode.HeuristicLength;//опасно - эвристика below zero
+                    if (node.VStatus == VStatEnum.NoViewed || newDistance < node.Distance)
+                    {
+                        node.Distance = newDistance;
+                        if (node.VStatus != VStatEnum.Open) node.VStatus = VStatEnum.Open;
+                        node.ParentId = currentNode.VertexId;
+                        relax++;
+                    }
+                }
+                currentNode.VStatus = VStatEnum.Closed;
+            } while (list.Any(node => node.VStatus == VStatEnum.Open));
+
+            return relax;
+        }
     }
 }

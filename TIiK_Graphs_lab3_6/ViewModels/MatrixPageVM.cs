@@ -30,14 +30,14 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         private void LoadQualitySets()
         {
             MatrixAdjacency = VertexFactory.GetWeightMatrixQuality();
-            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexDijkstra()); VertexFactory.GetVertexDijkstra();
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVerticesDijkstra()); VertexFactory.GetVerticesDijkstra();
             AddColumnCollection(13);
         }
 
         private void LoadCostSets()
         {
             MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
-            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexDijkstra()); VertexFactory.GetVertexDijkstra();
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVerticesDijkstra()); VertexFactory.GetVerticesDijkstra();
             AddColumnCollection(13);
         }
 
@@ -99,7 +99,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void RandomMatrix()
         {
-            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexes(SelectedVNumber));
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertices(SelectedVNumber));
             MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber, RandomStep, VertexNodes);
         }
 

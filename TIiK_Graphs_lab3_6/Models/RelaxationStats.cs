@@ -39,12 +39,11 @@ namespace TIiK_Graphs_lab3_6.Models
             StarRelax = ast;
         }
 
-        public RelaxationStats(int vtx, int e, int d)
+        public RelaxationStats(int vtx, int d, int ast)
         {
             VertexNumber = vtx;
-            EdgesNumber = e;
             DijkstraRelax = d;
+            StarRelax = ast;
         }
-
     }
 }

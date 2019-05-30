@@ -18,7 +18,7 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         public EfficiencyPageVM()
         {
             RelaxationScore = new ObservableCollection<RelaxationStats>();
-            BypassCommand = new DelegateCommand(PerformTests, CanPerformTests);
+            TestStartCommand = new DelegateCommand(PerformTests, CanPerformTests);
         }
 
         private bool CanPerformTests()
@@ -32,39 +32,28 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void PerformTests()
         {
-            //foreach (var node in VertexNodes)
-            //{
-            //    node.VStatus = VStatEnum.NoViewed;
-            //    node.Distance = 10000;
-            //    node.ParentId = -1;
-            //}
+            var diikstraAvg = 0;
+            var astarAvg = 0;
+            int sumD = 0;
+            int sumA = 0;
+            for (int i = 0; i < TestsNum; i++)
+            {
+                var vertices = VertexFactory.GetVertices(TestVertexNum);
+                var matrix = VertexFactory.GetRandomMatrix(TestVertexNum, 500, vertices);
 
-            //int result = 0;
-            //switch (SelectedBypass)
-            //{
-            //    case 0:
-            //        result = BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
-            //        break;
-            //    case 1:
-            //        result = BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
-            //        break;
-            //    case 2:
-            //        result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
-            //        break;
-            //    case 3:
-            //        result = BypassService.AStarBypass(new Collection<int>());
-            //        break;
-            //}
+                sumD += BypassService.DijkstraBypass(vertices, matrix, StartTestVertex);
+                foreach (var node in vertices)
+                {
+                    node.VStatus = VStatEnum.NoViewed;
+                    node.Distance = 10000;
+                    node.ParentId = -1;
+                }
+                sumA += BypassService.AStarBypass(vertices, matrix, StartTestVertex, FinishTestVertex);
+            }
 
-            //if (!result)
-            //{
-            //    new ModernDialog()
-            //    {
-            //        Title = "Обход графа",
-            //        Content = "Не удалось дойти до целевой вершины графа (нельзя обойти все вершины)"
-            //    }.ShowDialog();
-            //}
-
+            diikstraAvg = sumD / TestsNum;
+            astarAvg = sumA / TestsNum;
+            RelaxationScore.Add(new RelaxationStats(TestVertexNum, diikstraAvg, astarAvg));
         }
 
 
@@ -123,12 +112,11 @@ namespace TIiK_Graphs_lab3_6.ViewModels
             }
         }
 
-
         #endregion
 
 
         #region DelegateCommands
-        public DelegateCommand BypassCommand { get; private set; }
+        public DelegateCommand TestStartCommand { get; private set; }
 
 
 
