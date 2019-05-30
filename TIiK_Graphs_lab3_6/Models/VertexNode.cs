@@ -29,6 +29,8 @@ namespace TIiK_Graphs_lab3_6.Models
 
         public int Distance { get; set; }
 
+        public int HeuristicLength { get; set; }
+
         public Point Position { get; set; }
 
         public string Name

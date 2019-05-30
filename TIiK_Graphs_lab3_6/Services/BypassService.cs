@@ -14,149 +14,159 @@ namespace TIiK_Graphs_lab3_6.Services
         Open,
         Closed
     }
+
     public static class BypassService
     {
         private static Stack<VertexNode> stack = new Stack<VertexNode>();
         private static Queue<VertexNode> queue = new Queue<VertexNode>();
 
-        /// <summary>
-        /// Исправить обход графов с циклами (проверять посещение всех вершин)
-        /// 
-        /// </summary>
+        private static Collection<VertexNode> GetNeighbours(ObservableCollection<ObservableCollection<int>> matrix,
+            ObservableCollection<VertexNode> list, VertexNode node)
+        {
+            var result = new Collection<VertexNode>();
+            for (var i = 0; i < list.Count; i++)
+            {
+                if (matrix[node.VertexId - 1][i] > 0)
+                {
+                    result.Add(list[i]);
+                }
+            }
+
+            return result;
+        }
 
         private static int GetHeuristicPath(Point from, Point to)
         {
-            return (int)(Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y)); 
+            return (int)(Math.Abs(@from.X - to.X) + Math.Abs(@from.Y - to.Y));
         }
 
         public static bool DepthBypass(ObservableCollection<VertexNode> list,
-            ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path)
+            ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
         {
             path.Clear();
-            stack.Push(list[0]);
             list[0].VStatus = VStatEnum.Open;
+            stack.Push(list[0]);
             while (stack.Count > 0)
             {
-                var vertex = stack.Pop();
-                path.Add(vertex);
-                for (int i = 0; i < list.Count; i++)
+                var currentNode = stack.Pop();
+                path.Add(currentNode);
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
                 {
-                    if (matrix[vertex.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
+                    if (node.VStatus == VStatEnum.NoViewed)
                     {
-                        stack.Push(list[i]);
-                        list[i].VStatus = VStatEnum.Open;
+                        node.VStatus = VStatEnum.Open;
+                        stack.Push(node);
                     }
                 }
             }
+
             return list.All(node => node.VStatus != VStatEnum.NoViewed);
         }
 
         public static bool WidthBypass(ObservableCollection<VertexNode> list,
-            ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path)
+            ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path)
         {
             path.Clear();
-            queue.Enqueue(list[0]);
             list[0].VStatus = VStatEnum.Open;
+            queue.Enqueue(list[0]);
             while (queue.Count > 0)
             {
-                var vertex = queue.Dequeue() as VertexNode;
-                path.Add(vertex);
-                for (int i = 0; i < list.Count; i++)
+                var currentNode = queue.Dequeue();
+                path.Add(currentNode);
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
                 {
-                    if (matrix[vertex.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
+                    if (node.VStatus == VStatEnum.NoViewed)
                     {
-                        queue.Enqueue(list[i]);
-                        list[i].VStatus = VStatEnum.Open;
+                        node.VStatus = VStatEnum.Open;
+                        queue.Enqueue(node);
                     }
                 }
             }
+
             return list.All(node => node.VStatus != VStatEnum.NoViewed);
         }
 
         public static bool DijkstraBypass(ObservableCollection<VertexNode> list,
-            ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path, int start)
+            ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path, int start)
         {
             path.Clear();
             int relax = 0;
-            int newD;
-            var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
+            int newDistance;
+            var sortedList = list.Where(node => node.VStatus != VStatEnum.Closed).OrderBy(node => node.Distance);
             var index = list.IndexOf(x => x.VertexId == start);
             list[index].Distance = 0;
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
-            while (list.Any(node => node.VStatus == VStatEnum.Open))
+            do
             {
-                var u = sortedList.FirstOrDefault();//node with min distance
-                if (u == null)
+                var currentNode = sortedList.FirstOrDefault(); //node with min distance
+                if (currentNode == null)
                     return false;
-                path.Add(u);
+                path.Add(currentNode);
 
-                for (int i = 0; i < list.Count; i++)
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
                 {
-                    if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
+                    if (node.VStatus == VStatEnum.Closed) continue;
+
+                    newDistance = matrix[currentNode.VertexId - 1][node.VertexId - 1] + currentNode.Distance;
+                    if (node.VStatus == VStatEnum.NoViewed || newDistance < node.Distance)
                     {
-                        newD = matrix[u.VertexId - 1][i] + u.Distance;
-                        if (newD < list[i].Distance)
-                        {
-                            list[i].Distance = newD;
-                            relax++;
-                        }
-
-                        list[i].VStatus = VStatEnum.Open;
-                        list[i].ParentId = u.VertexId;
-
-
+                        node.Distance = newDistance;
+                        node.ParentId = currentNode.VertexId;
+                        if (node.VStatus != VStatEnum.Open) node.VStatus = VStatEnum.Open;
+                        relax++;
                     }
                 }
-                list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
-            }
+                currentNode.VStatus = VStatEnum.Closed;
+            } while (list.Any(node => node.VStatus == VStatEnum.Open));
             return true;
         }
 
         public static bool AStarBypass(ObservableCollection<VertexNode> list,
-            ObservableCollection<ObservableCollection<int>> matrix,
-            ObservableCollection<VertexNode> path, int start, int finish)
+            ObservableCollection<ObservableCollection<int>> matrix, ObservableCollection<VertexNode> path, int start,
+            int finish)
         {
             path.Clear();
             int relax = 0;
-            int newD;
+            int newDistance;
             Point finishPoint = list[finish - 1].Position;
-            var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance);
+            foreach (var node in list)
+            {
+                node.HeuristicLength = GetHeuristicPath(node.Position, finishPoint);
+            }
+            var sortedList = list.Where(node => node.VStatus == VStatEnum.Open).OrderBy(node => node.Distance + node.HeuristicLength);
             var index = list.IndexOf(x => x.VertexId == start);
-            list[index].Distance = GetHeuristicPath(list[index].Position, list[finish - 1].Position);
+            list[index].Distance = 0;
             list[index].ParentId = start;
             list[index].VStatus = VStatEnum.Open;
-            while (list.Any(node => node.VStatus == VStatEnum.Open))
+            do
             {
-                var u = sortedList.FirstOrDefault();//node with min distance
-                path.Add(u);
+                var currentNode = sortedList.FirstOrDefault(); //node with min distance
+                if (currentNode == null)
+                    return false;
 
-                if (u.VertexId == finish) return true;
+                path.Add(currentNode);
 
-                for (int i = 0; i < list.Count; i++)
+                if (currentNode.VertexId == finish) return true;
+
+                foreach (var node in GetNeighbours(matrix, list, currentNode))
                 {
-                    if (matrix[u.VertexId - 1][i] > 0 && list[i].VStatus == VStatEnum.NoViewed)
+                    if (node.VStatus == VStatEnum.Closed) continue;
+                    newDistance = matrix[currentNode.VertexId - 1][node.VertexId - 1] + currentNode.Distance +
+                                  Math.Abs(node.HeuristicLength - currentNode.HeuristicLength);//опасно - эвристика below zero
+                    if (node.VStatus == VStatEnum.NoViewed || newDistance < node.Distance)
                     {
-                        newD = matrix[u.VertexId - 1][i] + u.Distance + GetHeuristicPath(list[i].Position, finishPoint) - GetHeuristicPath(u.Position, finishPoint);
-                        if (newD < list[i].Distance)
-                        {
-                            list[i].Distance = newD;
-                            relax++;
-                        }
-
-                        list[i].VStatus = VStatEnum.Open;
-                        list[i].ParentId = u.VertexId;
-
-
+                        node.Distance = newDistance;
+                        if (node.VStatus != VStatEnum.Open) node.VStatus = VStatEnum.Open;
+                        node.ParentId = currentNode.VertexId;
+                        relax++;
                     }
                 }
-                list.ElementAt(u.VertexId - 1).VStatus = VStatEnum.Closed;
-            }
+                currentNode.VStatus = VStatEnum.Closed;
+            } while (list.Any(node => node.VStatus == VStatEnum.Open));
 
-            return list[finish - 1].ParentId != -1;
+            return list[finish - 1].ParentId != -1; //не дошли до цели
         }
+
     }
 }
