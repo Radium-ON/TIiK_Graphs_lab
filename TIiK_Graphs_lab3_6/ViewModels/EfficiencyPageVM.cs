@@ -32,38 +32,38 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void PerformTests()
         {
-            foreach (var node in VertexNodes)
-            {
-                node.VStatus = VStatEnum.NoViewed;
-                node.Distance = 10000;
-                node.ParentId = -1;
-            }
+            //foreach (var node in VertexNodes)
+            //{
+            //    node.VStatus = VStatEnum.NoViewed;
+            //    node.Distance = 10000;
+            //    node.ParentId = -1;
+            //}
 
-            int result = 0;
-            switch (SelectedBypass)
-            {
-                case 0:
-                    result = BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
-                    break;
-                case 1:
-                    result = BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
-                    break;
-                case 2:
-                    result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
-                    break;
-                case 3:
-                    result = BypassService.AStarBypass(new Collection<int>());
-                    break;
-            }
+            //int result = 0;
+            //switch (SelectedBypass)
+            //{
+            //    case 0:
+            //        result = BypassService.DepthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
+            //        break;
+            //    case 1:
+            //        result = BypassService.WidthBypass(VertexNodes, MatrixAdjacency, BypassCollection);
+            //        break;
+            //    case 2:
+            //        result = BypassService.DijkstraBypass(VertexNodes, MatrixAdjacency, BypassCollection, StartBVertex);
+            //        break;
+            //    case 3:
+            //        result = BypassService.AStarBypass(new Collection<int>());
+            //        break;
+            //}
 
-            if (!result)
-            {
-                new ModernDialog()
-                {
-                    Title = "Обход графа",
-                    Content = "Не удалось дойти до целевой вершины графа (нельзя обойти все вершины)"
-                }.ShowDialog();
-            }
+            //if (!result)
+            //{
+            //    new ModernDialog()
+            //    {
+            //        Title = "Обход графа",
+            //        Content = "Не удалось дойти до целевой вершины графа (нельзя обойти все вершины)"
+            //    }.ShowDialog();
+            //}
 
         }
 

@@ -17,7 +17,6 @@ namespace TIiK_Graphs_lab3_6.ViewModels
     {
         public MatrixPageVM()
         {
-            VertexNodes = new ObservableCollection<VertexNode>();
             BypassCollection = new ObservableCollection<VertexNode>();
             AddVertexCommand = new DelegateCommand<string>(AddVertex, CanAddVertex);
             RandomMatrixCommand = new DelegateCommand(RandomMatrix, CanRandom);
@@ -31,20 +30,20 @@ namespace TIiK_Graphs_lab3_6.ViewModels
         private void LoadQualitySets()
         {
             MatrixAdjacency = VertexFactory.GetWeightMatrixQuality();
-            VertexNodes = VertexFactory.GetVertexDijkstra();
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexDijkstra()); VertexFactory.GetVertexDijkstra();
             AddColumnCollection(13);
         }
 
         private void LoadCostSets()
         {
             MatrixAdjacency = VertexFactory.GetWeightMatrixCost();
-            VertexNodes = VertexFactory.GetVertexDijkstra();
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexDijkstra()); VertexFactory.GetVertexDijkstra();
             AddColumnCollection(13);
         }
 
         private bool CanPerformBypass()
         {
-            if (VertexNodes.Count == 0 || MatrixAdjacency.Count == 0)
+            if (VertexNodes == null || MatrixAdjacency.Count == 0)
                 return false;
             if (StartBVertex == 0 ||
                 StartBVertex > SelectedVNumber ||
@@ -100,12 +99,14 @@ namespace TIiK_Graphs_lab3_6.ViewModels
 
         private void RandomMatrix()
         {
-            VertexNodes = VertexFactory.GetVertexes(SelectedVNumber);
+            VertexNodes = new ObservableCollection<VertexNode>(VertexFactory.GetVertexes(SelectedVNumber));
             MatrixAdjacency = VertexFactory.GetRandomMatrix(SelectedVNumber, RandomStep, VertexNodes);
         }
 
         private bool CanAddVertex(string par)
         {
+            if (VertexNodes == null)
+                return false;
             return !(VertexNodes.Any(item => item.Name == par) ||
                                              string.IsNullOrEmpty(par));
         }

@@ -11,9 +11,9 @@ namespace TIiK_Graphs_lab3_6.Models
     {
         //random.NextDouble() * (maxValue - minValue) + minValue
         //случайные смежные вершины. их заполнить числами, остальное 0
-        public static ObservableCollection<VertexNode> GetVertexDijkstra()
+        public static Collection<VertexNode> GetVertexDijkstra()
         {
-            var coll = new ObservableCollection<VertexNode>
+            var coll = new Collection<VertexNode>
             {
                 new VertexNode(1, "Новосибирск",55.030199, 82.920430),
                 new VertexNode(2, "Прага",50.080293, 14.428983),
@@ -32,10 +32,10 @@ namespace TIiK_Graphs_lab3_6.Models
             return coll;
         }
 
-        public static ObservableCollection<VertexNode> GetVertexes(int num)
+        public static Collection<VertexNode> GetVertexes(int num)
         {
             var rand = new Random();
-            var coll = new ObservableCollection<VertexNode>();
+            var coll = new Collection<VertexNode>();
             for (int i = 1; i <= num; i++)
             {
                 coll.Add(new VertexNode(i, $"rand {i}", new int[rand.Next(1, 11)], rand.NextDouble() * 180 - 90, rand.NextDouble() * 360 - 180));
