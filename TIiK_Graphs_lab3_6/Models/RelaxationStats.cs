@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DevExpress.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevExpress.Mvvm;
 
 namespace TIiK_Graphs_lab3_6.Models
 {
@@ -12,13 +12,13 @@ namespace TIiK_Graphs_lab3_6.Models
         public int VertexNumber
         {
             get => GetProperty(() => VertexNumber);
-            set => SetProperty(()=>VertexNumber,value);
+            set => SetProperty(() => VertexNumber, value);
         } //Число вершин
-        
+
         public int EdgesNumber
         {
             get => GetProperty(() => EdgesNumber);
-            set => SetProperty(()=>EdgesNumber,value);
+            set => SetProperty(() => EdgesNumber, value);
         } // Число рёбер
 
         public int Theory
@@ -27,11 +27,7 @@ namespace TIiK_Graphs_lab3_6.Models
             set { SetProperty(() => Theory, value); }
         } //Теор. значение
 
-        public int DijkstraRelax
-        {
-            get => VertexNumber * VertexNumber + EdgesNumber;
-            set { SetProperty(()=>DijkstraRelax, value); }
-        } //Релакс. Дейкстры
+        public int DijkstraRelax { get; set; } //Релакс. Дейкстры
 
         public int StarRelax { get; set; }//Релакс. A-Star
 
